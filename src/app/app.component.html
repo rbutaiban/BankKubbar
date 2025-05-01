@@ -1,4 +1,4 @@
-<div class="topnav">
+<!-- <div class="topnav">
   <button
     [routerLink]="['']"
     routerLinkActive="active-button"
@@ -14,16 +14,16 @@
   </button>
   <div class="logout-container">
     @if(userLoggedIn) {
-      <div>
-        <p>{{userName}}</p>
-        <button (click)="logout()">
-          Log Out
-        </button>
-      </div>
+    <div>
+      <p>{{ userName }}</p>
+      <button (click)="logout()">Log Out</button>
+    </div>
     }
   </div>
-</div>
+</div> -->
 
-<div style="padding-left:16px">
+<app-navbar></app-navbar>
+
+<div style="padding-left: 16px">
   <router-outlet></router-outlet>
 </div>
