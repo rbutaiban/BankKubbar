@@ -6,7 +6,7 @@ import { loggedInGuard } from './guards/logged-in.guard';
 import { DashboardComponent } from './pages/dashboard/dashboard/dashboard.component';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: HomeComponent, canActivate: [loggedInGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   {
