@@ -54,8 +54,6 @@ export class AuthService extends BaseService {
           this.token.set(response.token);
           this.isLoggedIn.set(true);
           this.userService.getProfile().subscribe();
-          // localStorage.setItem('user', data.username);
-          // localStorage.setItem('token', response.toString());
         }
       }),
       catchError((error) => {
@@ -93,8 +91,6 @@ export class AuthService extends BaseService {
           this.token.set(response.token);
           this.isLoggedIn.set(true);
           this.userService.getProfile().subscribe();
-          // localStorage.setItem('user', data.username);
-          // localStorage.setItem('token', response.toString());
         }
       }),
       catchError((error) => {
@@ -110,15 +106,12 @@ export class AuthService extends BaseService {
     this.token.set(null);
     this.isLoggedIn.set(false);
     this.userService.user.set(null);
-    // localStorage.removeItem('user');
-    // localStorage.removeItem('token');
   }
 
   onIsLoggedIn(): boolean {
     const hasToken = this.cookieService.check(this.userToken);
     this.isLoggedIn.set(hasToken);
 
-    // If logged in but no user data, fetch the profile
     if (hasToken && !this.userService.user()) {
       this.userService.getProfile().subscribe();
     }

@@ -3,12 +3,11 @@ import { ButtonComponent } from '../ui/button/button.component';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { UserComponent } from '../user/user.component';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [ButtonComponent, UserComponent, AsyncPipe],
+  imports: [ButtonComponent, UserComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
