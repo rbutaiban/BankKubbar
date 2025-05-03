@@ -1,24 +1,9 @@
 <div class="container mx-auto">
-  @if(userLoggedIn$()) {
   <div class="container">
-    <h1>Hello, {{ userName }}!</h1>
-    <div
-      [@openClose]="isCardOpen ? 'active' : 'inactive'"
-      class="card"
-      (click)="toggleCard()"
-    >
-      <div class="card-face card-face__layout">Balance: 10,233 KWD</div>
-      <div class="card-face card-face__layout back">
-        <img src="../../../assets/images/visa-logo.png" style="width: 200px" />
-        <span></span>
-      </div>
-    </div>
+    <app-bank-card
+      [amount]="amount | async"
+      [cardTitle]="'Balance'"
+    ></app-bank-card>
+    <app-transactions></app-transactions>
   </div>
-
-  <app-transactions></app-transactions>
-
-  }@else{
-  <h1>Hello, guest!</h1>
-
-  }
 </div>

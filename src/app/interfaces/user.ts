@@ -3,4 +3,5 @@ export interface User {
   password: string;
   image?: string;
   _id: string;
+  balance: number;
 }
