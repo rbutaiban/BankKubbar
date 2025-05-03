@@ -7,3 +7,11 @@ export interface Transaction {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface TransactionData {
+  id: string;
+  type: string;
+  amount: number;
+  from: string;
+  to: string;
+}

@@ -1,11 +1,11 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { BaseService } from './base.service';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map, throwError } from 'rxjs';
+import { catchError, map, throwError, Observable } from 'rxjs';
 
 import { Transaction } from '../interfaces/transaction';
-import { Observable } from 'rxjs';
 import { toObservable } from '@angular/core/rxjs-interop';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +17,8 @@ export class TransactionService extends BaseService {
   constructor(private http: HttpClient) {
     super(http);
   }
+
+  private usersService = inject(UserService);
 
   myTransactions = signal<Transaction[]>([]);
   myTransactions$ = toObservable(this.myTransactions);
