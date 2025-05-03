@@ -8,12 +8,11 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
   animations: [
