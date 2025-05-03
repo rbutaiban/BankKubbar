@@ -1,0 +1,15 @@
+<div
+  [@openClose]="isCardOpen ? 'active' : 'inactive'"
+  class="card"
+  (click)="toggleCard()"
+>
+  <div class="card-back">
+    <h3>{{ cardTitle }}</h3>
+    <p>{{ amount | currency : "KWD" : "symbol" }}</p>
+  </div>
+  <div class="card-front">
+    <img
+      src="https://download.logo.wine/logo/Mastercard/Mastercard-Logo.wine.png"
+    />
+  </div>
+</div>

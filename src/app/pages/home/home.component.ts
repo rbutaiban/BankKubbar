@@ -1,56 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, inject } from '@angular/core';
+import { TransactionsComponent } from '../transactions/transactions/transactions.component';
+import { BankCardComponent } from '../../components/bank-card/bank-card.component';
+import { UserService } from '../../services/user.service';
+import { AsyncPipe } from '@angular/common';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [TransactionsComponent, BankCardComponent, AsyncPipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
-  animations: [
-    trigger("openClose", [
-      state(
-        "active",
-        style({
-          transform: "scale(1) rotateY(0deg)",
-          'box-shadow': '3px 5px 10px rgb(112, 110, 110)'
-        })
-      ),
-      state(
-        "inactive",
-        style({
-          transform: "scale(0.7) rotateY(-180deg)"
-        })
-      ),
-      transition("active <=> inactive", [animate("500ms")])
-    ])
-  ]
 })
-export class HomeComponent implements OnInit{
-  userLoggedIn: boolean = false;
-  userName: string = "";
-  isCardOpen = false;
-
-  
-  constructor(private authService: AuthService, private router: Router){
-    
-  }
-
+export class HomeComponent {
+  userService = inject(UserService);
+  user$ = this.userService.user$;
+  amount = this.user$.pipe(map((user) => Number(user?.balance) || 0));
   ngOnInit(): void {
-    this.userLoggedIn = this.authService.isLoggedIn();
-
-    if(!this.userLoggedIn){
-      this.router.navigate(["/login"]);
-    }else{
-      this.userName = this.authService.getLoggedInUser();
-    }
-  }  
-
-  public toggleCard(): void {
-    this.isCardOpen = !this.isCardOpen;
+    this.userService.getProfile().subscribe();
   }
-  
-    
 }
