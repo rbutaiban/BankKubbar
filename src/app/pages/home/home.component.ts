@@ -8,11 +8,12 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { TransactionsComponent } from "../transactions/transactions/transactions.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [TransactionsComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
   animations: [

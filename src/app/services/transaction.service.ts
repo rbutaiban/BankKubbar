@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { BaseService } from './base.service';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, throwError } from 'rxjs';
 
 import { Transaction } from '../interfaces/transaction';
 import { Observable } from 'rxjs';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
@@ -17,9 +18,15 @@ export class TransactionService extends BaseService {
     super(http);
   }
 
+  myTransactions = signal<Transaction[]>([]);
+  myTransactions$ = toObservable(this.myTransactions);
+
   getMyTransactions(): Observable<Transaction[]> {
     return this.get<Transaction[]>(`${this.baseUrl}/my`).pipe(
-      map((transactions: Transaction[]) => transactions),
+      map((transactions: Transaction[]) => {
+        this.myTransactions.set(transactions);
+        return transactions;
+      }),
       catchError((error) => {
         console.error('Error fetching transactions:', error);
         return throwError(() => error);

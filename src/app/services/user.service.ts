@@ -18,6 +18,9 @@ export class UserService extends BaseService {
   user = signal<User | null>(null);
   user$ = toObservable(this.user);
 
+  users = signal<User[]>([]);
+  users$ = toObservable(this.users);
+
   getProfile(): Observable<User> {
     return this.get<User>(`${this.baseUrl}/me`).pipe(
       map((user: User) => user),
@@ -26,16 +29,17 @@ export class UserService extends BaseService {
         return throwError(() => error);
       }),
       tap((user: User) => {
-        console.log(user);
         this.user.set(user);
-        console.log(this.user());
       })
     );
   }
 
   getUsers(): Observable<User[]> {
     return this.get<User[]>(`${this.baseUrl}/users`).pipe(
-      map((users: User[]) => users),
+      map((users: User[]) => {
+        this.users.set(users);
+        return users;
+      }),
       catchError((error) => {
         console.error('Error fetching users:', error);
         return throwError(() => error);

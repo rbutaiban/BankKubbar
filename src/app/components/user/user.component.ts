@@ -15,8 +15,6 @@ export class UserComponent implements OnInit {
   user$ = this.userService.user$;
 
   ngOnInit() {
-    // If not already loaded, try to get the profile
-    console.log(this.user$);
     if (!this.userService.user()) {
       this.userService.getProfile().subscribe();
     }
