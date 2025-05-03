@@ -1,15 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { TransactionService } from '../../../services/transaction.service';
-import { JsonPipe, AsyncPipe, CurrencyPipe } from '@angular/common';
-import { Transaction, TransactionData } from '../../../interfaces/transaction';
 import { DataTableComponent } from '../../../components/ui/data-table/data-table.component';
 import { UserService } from '../../../services/user.service';
-import { forkJoin, map, catchError, of, timer } from 'rxjs';
+import { TransactionData } from '../../../interfaces/transaction';
 
 @Component({
   selector: 'app-transactions',
   standalone: true,
-  imports: [JsonPipe, AsyncPipe, DataTableComponent, CurrencyPipe],
+  imports: [DataTableComponent],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.css',
 })
