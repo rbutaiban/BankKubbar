@@ -1,10 +1,10 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
-
+import { UsernamePipe } from '../../../pips/username.pipe';
 @Component({
   selector: 'app-data-table',
   standalone: true,
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, UsernamePipe],
   templateUrl: './data-table.component.html',
 })
 export class DataTableComponent<T extends Record<string, any>>

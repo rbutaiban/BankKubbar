@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -12,4 +13,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 })
 export class AppComponent {
   title = 'BankKubbar';
+  constructor(private userService: UserService) {
+    this.userService.getUsers().subscribe();
+  }
 }

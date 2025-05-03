@@ -52,6 +52,7 @@ export class UserService extends BaseService implements OnInit {
   }
 
   getUserById(id: string): Observable<User | null> {
+    // this.getUsers().subscribe();
     return this.users$.pipe(
       map((users: User[]) => {
         const user = users.find((user) => user._id === id);

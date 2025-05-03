@@ -21,7 +21,11 @@
         {{ item[key] }}
         } } @else if (key === "amount") {
         {{ item[key] | currency : "KWD" }}
-        } @else {
+        } @else if (key === "from") {
+        {{ item[key] | username }}
+        } @else if (key === "to") {
+        {{ item[key] | username }}
+        } @else  {
         {{ item[key] }}
         }
       </td>
