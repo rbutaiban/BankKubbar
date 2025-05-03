@@ -1,0 +1,16 @@
+@if(user$ | async; as user) {
+<div class="p-4 relative">
+  <div class="flex items-center gap-2">
+    @if(user.image) {
+    <img src="{{ user.image }}" alt="user" class="size-10 rounded-full" />
+    } @else {
+    <div
+      class="text-gray-900 size-10 flex items-center justify-center text-sm rounded-full bg-gray-200"
+    >
+      {{ user.username.charAt(0).toUpperCase() }}
+    </div>
+    }
+    <span>{{ user.username }}</span>
+  </div>
+</div>
+}

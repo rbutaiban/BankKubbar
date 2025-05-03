@@ -8,11 +8,12 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [AsyncPipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
   animations: [
@@ -35,7 +36,7 @@ import {
   ],
 })
 export class HomeComponent {
-  userLoggedIn: boolean = this.authService.isLoggedIn();
+  userLoggedIn$ = this.authService.isLoggedIn$;
   userName: string = this.authService.getLoggedInUser();
   isCardOpen = false;
 
