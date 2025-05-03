@@ -14,4 +14,6 @@ export interface TransactionData {
   amount: number;
   from: string;
   to: string;
+  createdAt: Date;
+  updatedAt: Date;
 }

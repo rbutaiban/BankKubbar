@@ -28,6 +28,8 @@ export class TransactionsComponent implements OnInit {
             amount: result.amount,
             from: result.from,
             to: result.to,
+            createdAt: result.createdAt,
+            updatedAt: result.updatedAt,
           }));
         }
       },

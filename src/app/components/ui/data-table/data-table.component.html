@@ -35,6 +35,10 @@
           {{ item[key] | username }}
           } @else if (key === "to") {
           {{ item[key] | username }}
+          } @else if (key === "createdAt") {
+          {{ item[key] | date : "mediumDate" }}
+          } @else if (key === "updatedAt") {
+          {{ item[key] | date : "mediumDate" }}
           } @else {
           {{ item[key] }}
           }

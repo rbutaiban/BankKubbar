@@ -9,7 +9,15 @@
 <app-data-table
   [data]="transactionsData"
   [pageSize]="3"
-  [headerKeys]="['id', 'type', 'amount', 'from', 'to']"
+  [headerKeys]="[
+    'id',
+    'type',
+    'amount',
+    'from',
+    'to',
+    'createdAt',
+    'updatedAt'
+  ]"
 >
 </app-data-table>
 }
