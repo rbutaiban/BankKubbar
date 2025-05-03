@@ -1,3 +1,18 @@
+<div class="flex w-full justify-between items-center py-4">
+  <div class="right-side">
+    <h3 class="text-2xl font-bold">My Transactions</h3>
+  </div>
+  <div class="left-side">
+    <div class="flex gap-2 items-center">
+      <app-button
+        [variant]="'outline'"
+        [label]="'Add Transaction'"
+      ></app-button>
+      <app-button [label]="'Transfer'"></app-button>
+    </div>
+  </div>
+</div>
+
 @if (loading) {
 <div class="flex justify-center items-center p-8">
   <div
@@ -8,7 +23,6 @@
 } @else {
 <app-data-table
   [data]="transactionsData"
-  [pageSize]="3"
   [headerKeys]="[
     'id',
     'type',

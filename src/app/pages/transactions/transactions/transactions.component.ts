@@ -3,11 +3,12 @@ import { TransactionService } from '../../../services/transaction.service';
 import { DataTableComponent } from '../../../components/ui/data-table/data-table.component';
 import { UserService } from '../../../services/user.service';
 import { TransactionData } from '../../../interfaces/transaction';
+import { ButtonComponent } from "../../../components/ui/button/button.component";
 
 @Component({
   selector: 'app-transactions',
   standalone: true,
-  imports: [DataTableComponent],
+  imports: [DataTableComponent, ButtonComponent],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.css',
 })
