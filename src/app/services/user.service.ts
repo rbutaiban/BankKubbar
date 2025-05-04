@@ -8,9 +8,6 @@ import { toObservable } from '@angular/core/rxjs-interop';
   providedIn: 'root',
 })
 export class UserService extends BaseService implements OnInit {
-  getAllUsers() {
-    throw new Error('Method not implemented.');
-  }
   private readonly baseUrl =
     'https://react-bank-project.eapi.joincoded.com/mini-project/api/auth';
 
