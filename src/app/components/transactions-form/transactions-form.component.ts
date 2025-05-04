@@ -1,4 +1,5 @@
 import { Component, Output, EventEmitter, inject } from '@angular/core';
+import { UserService } from '../../services/user.service';
 import {
   FormBuilder,
   FormGroup,
@@ -20,6 +21,9 @@ export class TransactionsFormComponent {
   transactionForm!: FormGroup;
   @Output() formSubmitted = new EventEmitter<void>();
   private modalService = inject(ModalService);
+  private userService = inject(UserService);
+  errorLabel = '';
+  userBalance = this.userService.balance;
 
   constructor(
     private fb: FormBuilder,
@@ -37,6 +41,10 @@ export class TransactionsFormComponent {
     }
 
     if (this.transactionForm.value.type === 'deposit') {
+      if (this.transactionForm.value.amount <= 0) {
+        this.errorLabel = 'Amount must be greater than 0';
+        return;
+      }
       this.transactionService
         .deposit(this.transactionForm.value.amount)
         .subscribe({
@@ -48,6 +56,14 @@ export class TransactionsFormComponent {
           },
         });
     } else {
+      if (this.transactionForm.value.amount <= 0) {
+        this.errorLabel = 'Amount must be greater than 0';
+        return;
+      }
+      if (this.transactionForm.value.amount > this.userBalance()) {
+        this.errorLabel = 'Amount must be less than your balance';
+        return;
+      }
       this.transactionService
         .withdraw(this.transactionForm.value.amount)
         .subscribe({
