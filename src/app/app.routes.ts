@@ -4,6 +4,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { loggedInGuard } from './guards/logged-in.guard';
 import { DashboardComponent } from './pages/dashboard/dashboard/dashboard.component';
+import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [loggedInGuard] },
@@ -14,5 +15,6 @@ export const routes: Routes = [
     component: DashboardComponent,
     canActivate: [loggedInGuard],
   },
+  { path: 'landing-page', component: LandingPageComponent },
   { path: '**', redirectTo: '' },
 ];
