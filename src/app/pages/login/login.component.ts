@@ -8,6 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FormErrorComponent } from '../../shared/form-error/form-error.component';
+import { BaseFormComponent } from '../../shared/base-form/base-form.component';
 
 @Component({
   selector: 'app-login',
@@ -16,24 +17,21 @@ import { FormErrorComponent } from '../../shared/form-error/form-error.component
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent extends BaseFormComponent {
   loginForm!: FormGroup;
-  errorLabel?: string;
 
   constructor(
-    private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    fb: FormBuilder
   ) {
+    super(fb);
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
-  ngOnInit(): void {
-    this.errorLabel = '';
-  }
   onSubmit() {
     if (this.loginForm.invalid) {
       return;

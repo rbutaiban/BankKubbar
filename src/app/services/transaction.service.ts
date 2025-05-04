@@ -17,11 +17,21 @@ export class TransactionService extends BaseService {
     super(http);
   }
 
+  private handleTransaction<T>(operation: Observable<T>): Observable<T> {
+    return operation.pipe(
+      tap(() => {
+        this.userService.getProfile().subscribe();
+      }),
+      catchError((error) => {
+        console.error('Transaction failed:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
   getMyTransactions(): Observable<Transaction[]> {
     return this.get<Transaction[]>(`${this.baseUrl}/my`).pipe(
-      map((transactions: Transaction[]) => {
-        return transactions;
-      }),
+      map((transactions: Transaction[]) => transactions),
       catchError((error) => {
         console.error('Error fetching transactions:', error);
         return throwError(() => error);
@@ -30,27 +40,20 @@ export class TransactionService extends BaseService {
   }
 
   deposit(amount: number) {
-    console.log({ amount });
-    return this.put(`${this.baseUrl}/deposit`, { amount }).pipe(
-      tap(() => {
-        this.userService.getProfile().subscribe();
-      })
+    return this.handleTransaction(
+      this.put(`${this.baseUrl}/deposit`, { amount })
     );
   }
 
   withdraw(amount: number) {
-    return this.put(`${this.baseUrl}/withdraw`, { amount }).pipe(
-      tap(() => {
-        this.userService.getProfile().subscribe();
-      })
+    return this.handleTransaction(
+      this.put(`${this.baseUrl}/withdraw`, { amount })
     );
   }
 
   transfer(username: string, amount: number) {
-    return this.put(`${this.baseUrl}/transfer/${username}`, { amount }).pipe(
-      tap(() => {
-        this.userService.getProfile().subscribe();
-      })
+    return this.handleTransaction(
+      this.put(`${this.baseUrl}/transfer/${username}`, { amount })
     );
   }
 }
