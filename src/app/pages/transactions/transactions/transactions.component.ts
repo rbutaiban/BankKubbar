@@ -4,11 +4,12 @@ import { DataTableComponent } from '../../../components/ui/data-table/data-table
 import { UserService } from '../../../services/user.service';
 import { TransactionData } from '../../../interfaces/transaction';
 import { ButtonComponent } from "../../../components/ui/button/button.component";
+import { ModalComponent } from "../../../components/ui/modal/modal.component";
 
 @Component({
   selector: 'app-transactions',
   standalone: true,
-  imports: [DataTableComponent, ButtonComponent],
+  imports: [DataTableComponent, ButtonComponent, ModalComponent],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.css',
 })

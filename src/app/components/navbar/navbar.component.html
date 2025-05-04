@@ -9,24 +9,12 @@
     @if(isLoggedIn$()) {
     <div class="flex items-center gap-4">
       <!-- <app-user></app-user> -->
-      <app-button
-        label="Logout"
-        (onClick)="logout()"
-        variant="fill"
-      ></app-button>
+      <app-button (onClick)="logout()" variant="fill"> Logout </app-button>
     </div>
     } @else {
     <div class="flex items-center gap-4">
-      <app-button
-        label="Login"
-        (onClick)="login()"
-        variant="outline"
-      ></app-button>
-      <app-button
-        label="Register"
-        (onClick)="register()"
-        variant="fill"
-      ></app-button>
+      <app-button (onClick)="login()" variant="outline"> Login </app-button>
+      <app-button (onClick)="register()" variant="fill">Register</app-button>
     </div>
     }
   </div>

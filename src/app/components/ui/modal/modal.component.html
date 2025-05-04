@@ -1,0 +1,24 @@
+<app-button [variant]="buttonVariant" (onClick)="openModal()">
+  {{ buttonTitle }}
+</app-button>
+
+@if(isOpen) {
+<div
+  class="w-screen h-screen absolute inset-0 z-40 bg-black/50 flex items-center justify-center"
+>
+  <div class="bg-white p-4 rounded-4xl min-w-md max-w-lg w-full z-50">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold">{{ modalTitle }}</h2>
+      <button
+        class="text-gray-500 hover:text-gray-950 size-8 rounded-full"
+        (click)="closeModal()"
+      >
+        X
+      </button>
+    </div>
+    <div class="flex flex-col gap-4">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>
+}
