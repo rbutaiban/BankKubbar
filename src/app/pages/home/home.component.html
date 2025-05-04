@@ -1,1 +1,55 @@
-<p>home works!</p>
+<div class="relative flex h-screen overflow-hidden">
+  <!-- Left Section -->
+  <div
+    class="w-1/2 bg-[#FAF9F6] flex flex-col justify-center px-16 z-10 relative"
+  >
+    <div
+      class="absolute top-0 left-0 w-full p-10 flex justify-between items-center"
+    >
+      <p class="text-3xl font-black uppercase">
+        Bank<span class="text-amber-500">Kubbar</span>
+      </p>
+    </div>
+    <div class="flex flex-col gap-4">
+      <h2 class="text-gray-600">Bank of Kubbar</h2>
+      <h1 class="text-4xl font-semibold">Banking Beyond Expectations</h1>
+      <p class="text-lg text-gray-700">
+        Tailored wealth solutions, exclusive investment access, and personalized
+        service—designed for those who expect more than ordinary banking.
+      </p>
+      <app-button
+        [variant]="'fill'"
+        [label]="'Get Started'"
+        [routerLink]="['/dashboard']"
+        >Get started</app-button
+      >
+    </div>
+  </div>
+
+  <!-- Right Section -->
+  <div class="w-1/2 relative z-0">
+    <img
+      src="assets/images/banking-image.png"
+      alt="Banking Visual"
+      class="w-full h-full object-cover"
+    />
+  </div>
+
+  <!-- Curved Divider (this sits OVER the image, simulating the curve) -->
+  <div
+    class="absolute left-1/2 top-0 h-full w-[350px] z-20 pointer-events-none"
+  >
+    <svg
+      viewBox="0 0 300 1000"
+      preserveAspectRatio="none"
+      class="h-full w-full"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <!-- This path curves from top-left to bottom-left inward -->
+      <path
+        d="M 300 0 C 50 250 100 750 300 1000 L 0 1000 L 0 0 Z"
+        fill="#FAF9F6"
+      />
+    </svg>
+  </div>
+</div>

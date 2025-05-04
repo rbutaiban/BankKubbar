@@ -28,8 +28,8 @@
 }
 
 .card-front {
-  background: #3b82f6;
-  background-image: linear-gradient(to left, #3b82f6, #2563eb);
+  background: #ffb74d;
+  background-image: linear-gradient(to left, #ffb74d, #ff9800);
   z-index: 2;
   position: relative;
 }
@@ -39,6 +39,7 @@
   position: absolute;
   bottom: 20px;
   right: 30px;
+  filter: drop-shadow(2px 2px 1px rgba(0, 0, 0, 0.2));
 }
 
 .card-front p {
@@ -51,11 +52,10 @@
 }
 
 .card-back {
-  background: #3b82f6;
-  background-image: linear-gradient(to right, #3b82f6, #2563eb);
+  background: #ffb74d;
+  background-image: linear-gradient(to right, #ffb74d, #ff9800);
   transform: rotateY(180deg);
   color: #fff;
-  /* position: relative; */
 }
 
 .card-back h3 {

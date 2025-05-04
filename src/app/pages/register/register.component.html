@@ -15,7 +15,7 @@
         type="text"
         id="username"
         formControlName="username"
-        class="border border-gray-300 rounded-4xl p-2"
+        class="border border-gray-300 rounded-4xl p-2 focus:outline-none focus:ring-2 focus:ring-amber-500"
       />
       <app-form-error
         [control]="registerForm.get('username')"
@@ -29,7 +29,7 @@
         type="password"
         id="password"
         formControlName="password"
-        class="border border-gray-300 rounded-4xl p-2"
+        class="border border-gray-300 rounded-4xl p-2 focus:outline-none focus:ring-2 focus:ring-amber-500"
       />
       <app-form-error
         [control]="registerForm.get('password')"
@@ -43,7 +43,7 @@
         type="file"
         id="image"
         formControlName="image"
-        class="border border-gray-300 rounded-4xl p-2 file:bg-gray-200 file:text-blue-500 file:border file:border-blue-500 file:px-4 file:py-2 file:rounded-4xl file:cursor-pointer"
+        class="border border-gray-300 rounded-4xl p-2 file:bg-gray-200 file:text-amber-500 file:border file:border-amber-500 file:px-4 file:py-2 file:rounded-4xl file:cursor-pointer focus:outline-none focus:ring-2 focus:ring-amber-500"
       />
       <app-form-error
         [control]="registerForm.get('image')"
@@ -54,14 +54,14 @@
     <button
       type="submit"
       [disabled]="registerForm.invalid"
-      class="bg-blue-500 text-white p-2 rounded-4xl cursor-pointer"
+      class="bg-amber-500 text-white p-2 rounded-4xl cursor-pointer"
     >
       Register
     </button>
 
     <div class="flex gap-2">
       <p>Already have an account?</p>
-      <a href="/login" class="text-blue-500">Login</a>
+      <a href="/login" class="text-amber-500">Login</a>
     </div>
 
     <label style="color: red">{{ errorLabel }}</label>

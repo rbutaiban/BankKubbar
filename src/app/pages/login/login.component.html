@@ -15,7 +15,7 @@
         type="text"
         id="username"
         formControlName="username"
-        class="border border-gray-300 rounded-4xl p-2"
+        class="border border-gray-300 rounded-4xl p-2 focus:outline-none focus:ring-2 focus:ring-amber-500"
       />
       <app-form-error
         [control]="loginForm.get('username')"
@@ -29,7 +29,7 @@
         type="password"
         id="password"
         formControlName="password"
-        class="border border-gray-300 rounded-4xl p-2"
+        class="border border-gray-300 rounded-4xl p-2 focus:outline-none focus:ring-2 focus:ring-amber-500"
       />
       <app-form-error
         [control]="loginForm.get('password')"
@@ -38,7 +38,7 @@
     </div>
 
     <button
-      class="bg-blue-500 text-white p-2 rounded-4xl cursor-pointer"
+      class="bg-amber-500 text-white p-2 rounded-4xl cursor-pointer"
       type="submit"
       [disabled]="loginForm.invalid"
     >
@@ -47,7 +47,7 @@
 
     <div class="flex gap-2">
       <p>Don't have an account?</p>
-      <a href="/register" class="text-blue-500">Register</a>
+      <a href="/register" class="text-amber-500">Register</a>
     </div>
 
     <label style="color: red">{{ errorLabel }}</label>
