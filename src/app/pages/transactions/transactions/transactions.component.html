@@ -4,8 +4,13 @@
   </div>
   <div class="left-side">
     <div class="flex gap-2 items-center">
-      <app-modal></app-modal>
-      <app-button [variant]="'outline'">Add Transaction</app-button>
+      <app-modal
+        [modalTitle]="'Add Transaction'"
+        [buttonTitle]="'Add Transaction'"
+        [buttonVariant]="'outline'"
+      >
+      </app-modal>
+
       <app-button [variant]="'fill'">Transfer</app-button>
     </div>
   </div>

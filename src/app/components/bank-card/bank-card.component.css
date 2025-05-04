@@ -67,12 +67,25 @@
 }
 
 .card-back p {
-  font-size: 36px;
+  font-size: 32px;
+  /* max-width: 10ch; */
+  text-wrap: balance;
+  white-space: nowrap;
+
+  text-overflow: ellipsis;
   font-family: Helvetica, Arial, Sans-serif;
   position: absolute;
-  bottom: 20px;
+  bottom: 40px;
   right: 30px;
   font-weight: 600;
+}
+
+.card-back p span {
+  font-size: 16px;
+  font-weight: 400;
+  position: absolute;
+  bottom: -20px;
+  right: 0;
 }
 
 :host {
