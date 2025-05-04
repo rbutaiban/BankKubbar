@@ -14,6 +14,14 @@ import { UserService } from './services/user.service';
 export class AppComponent {
   title = 'BankKubbar';
   constructor(private userService: UserService) {
-    this.userService.getUsers().subscribe();
+    this.userService.getUsers().subscribe({
+      next: (res) => {
+        this.userService.users.set(res);
+        console.log(res);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 }

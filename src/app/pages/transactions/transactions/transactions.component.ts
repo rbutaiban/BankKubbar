@@ -3,8 +3,8 @@ import { TransactionService } from '../../../services/transaction.service';
 import { DataTableComponent } from '../../../components/ui/data-table/data-table.component';
 import { UserService } from '../../../services/user.service';
 import { TransactionData } from '../../../interfaces/transaction';
-import { ButtonComponent } from "../../../components/ui/button/button.component";
-import { ModalComponent } from "../../../components/ui/modal/modal.component";
+import { ButtonComponent } from '../../../components/ui/button/button.component';
+import { ModalComponent } from '../../../components/ui/modal/modal.component';
 
 @Component({
   selector: 'app-transactions',
@@ -13,15 +13,9 @@ import { ModalComponent } from "../../../components/ui/modal/modal.component";
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.css',
 })
-export class TransactionsComponent implements OnInit {
-  transactionsService = inject(TransactionService);
-  usersService = inject(UserService);
-
-  transactionsData: TransactionData[] = [];
-  loading = false;
-
-  ngOnInit() {
-    this.transactionsService.getMyTransactions().subscribe({
+export class TransactionsComponent {
+  constructor(private transactionService: TransactionService) {
+    this.transactionService.getMyTransactions().subscribe({
       next: (results) => {
         if (results.length > 0) {
           this.transactionsData = results.map((result) => ({
@@ -40,4 +34,7 @@ export class TransactionsComponent implements OnInit {
       },
     });
   }
+
+  transactionsData: TransactionData[] = [];
+  loading = false;
 }

@@ -1,11 +1,9 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, throwError, Observable } from 'rxjs';
 
 import { Transaction } from '../interfaces/transaction';
-import { toObservable } from '@angular/core/rxjs-interop';
-import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,15 +16,9 @@ export class TransactionService extends BaseService {
     super(http);
   }
 
-  private usersService = inject(UserService);
-
-  myTransactions = signal<Transaction[]>([]);
-  myTransactions$ = toObservable(this.myTransactions);
-
   getMyTransactions(): Observable<Transaction[]> {
     return this.get<Transaction[]>(`${this.baseUrl}/my`).pipe(
       map((transactions: Transaction[]) => {
-        this.myTransactions.set(transactions);
         return transactions;
       }),
       catchError((error) => {
