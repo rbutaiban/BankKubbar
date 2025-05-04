@@ -1,5 +1,13 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
+import { ModalService } from '../../../services/modal.service';
 
 @Component({
   selector: 'app-modal',
@@ -11,15 +19,23 @@ import { ButtonComponent } from '../button/button.component';
 export class ModalComponent {
   isOpen = false;
 
+  constructor(private modalService: ModalService) {
+    this.modalService.isOpen$.subscribe((isOpen) => {
+      this.isOpen = isOpen;
+    });
+  }
+
   @Input() modalTitle: string = 'Modal Title';
   @Input() buttonTitle: string = 'Open Modal';
   @Input() buttonVariant: 'fill' | 'outline' = 'fill';
+  @Output() modalClosed = new EventEmitter<void>();
 
   openModal() {
-    this.isOpen = true;
+    this.modalService.open();
   }
 
   closeModal() {
-    this.isOpen = false;
+    this.modalService.close();
+    this.modalClosed.emit();
   }
 }

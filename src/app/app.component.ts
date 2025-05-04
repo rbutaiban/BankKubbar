@@ -15,7 +15,6 @@ export class AppComponent {
     this.userService.getUsers().subscribe({
       next: (res) => {
         this.userService.users.set(res);
-        console.log(res);
       },
       error: (err) => {
         console.log(err);

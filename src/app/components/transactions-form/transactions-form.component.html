@@ -1,0 +1,43 @@
+<form
+  [formGroup]="transactionForm"
+  (ngSubmit)="onSubmit()"
+  class="flex flex-col gap-4"
+>
+  <div class="flex flex-col gap-2">
+    <label for="type">Type:</label>
+    <select
+      id="type"
+      formControlName="type"
+      class="border border-gray-300 rounded-4xl p-2"
+    >
+      <option value="deposit">Deposit</option>
+      <option value="withdraw">Withdraw</option>
+    </select>
+    <app-form-error
+      [control]="transactionForm.get('type')"
+      fieldName="type"
+    ></app-form-error>
+  </div>
+
+  <div class="flex flex-col gap-2">
+    <label for="amount">Amount:</label>
+    <input
+      type="number"
+      id="amount"
+      formControlName="amount"
+      class="border border-gray-300 rounded-4xl p-2"
+    />
+    <app-form-error
+      [control]="transactionForm.get('amount')"
+      fieldName="amount"
+    ></app-form-error>
+  </div>
+
+  <button
+    class="bg-blue-500 text-white p-2 rounded-4xl cursor-pointer"
+    type="submit"
+    [disabled]="transactionForm.invalid"
+  >
+    Submit
+  </button>
+</form>

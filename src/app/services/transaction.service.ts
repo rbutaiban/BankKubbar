@@ -29,14 +29,15 @@ export class TransactionService extends BaseService {
   }
 
   deposit(amount: number) {
-    return this.post(`${this.baseUrl}/deposit`, { amount });
+    console.log({ amount });
+    return this.put(`${this.baseUrl}/deposit`, { amount });
   }
 
   withdraw(amount: number) {
-    return this.post(`${this.baseUrl}/withdraw`, { amount });
+    return this.put(`${this.baseUrl}/withdraw`, { amount });
   }
 
   transfer(username: string, amount: number) {
-    return this.post(`${this.baseUrl}/transfer/${username}`, { amount });
+    return this.put(`${this.baseUrl}/transfer/${username}`, { amount });
   }
 }

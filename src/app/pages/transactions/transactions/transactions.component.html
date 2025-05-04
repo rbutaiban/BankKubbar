@@ -7,10 +7,15 @@
   <div class="left-side">
     <div class="flex gap-2 items-center">
       <app-modal
+        #modal
         [modalTitle]="'Add Transaction'"
         [buttonTitle]="'Add Transaction'"
         [buttonVariant]="'outline'"
+        (modalClosed)="onModalClosed()"
       >
+        <app-transactions-form
+          (formSubmitted)="onModalClosed()"
+        ></app-transactions-form>
       </app-modal>
 
       <app-button [variant]="'fill'">Transfer</app-button>
@@ -28,7 +33,7 @@
 } @else {
 <app-data-table
   class="overflow-x-auto"
-  [data]="transactionsData"
+  [data]="transactionsData()"
   [headerKeys]="[
     'id',
     'type',
