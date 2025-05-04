@@ -1,0 +1,20 @@
+<form [formGroup]="transferForm" (ngSubmit)="transfer()"></form>
+    <label>Choose a User</label>
+<select id="user-select" [(ngModel)]="selectedUsername" name="username" required>
+    @if (users$ | async; as users) {
+        @for (user of users; track user.username ) {
+          <option [value]="user.username">
+            {{ user.username }}
+          </option>
+        }
+      } @else {
+        <option disabled>Loading users...</option>
+      }
+    
+    </select>
+<br>
+    <input type="number" name="amount" [(ngModel)]="amount" placeholder="Amount" required min="1" /> 
+    <button type="submit">Transfer</button> 
+  
+  <div *ngIf="message">{{ message }}</div>
+  

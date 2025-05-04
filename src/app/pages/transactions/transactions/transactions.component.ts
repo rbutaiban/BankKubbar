@@ -13,6 +13,7 @@ import { ButtonComponent } from "../../../components/ui/button/button.component"
   styleUrl: './transactions.component.css',
 })
 export class TransactionsComponent implements OnInit {
+  [x: string]: any;
   transactionsService = inject(TransactionService);
   usersService = inject(UserService);
 
@@ -39,4 +40,5 @@ export class TransactionsComponent implements OnInit {
       },
     });
   }
+
 }

@@ -6,6 +6,7 @@ import { catchError, map, throwError, Observable } from 'rxjs';
 import { Transaction } from '../interfaces/transaction';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { UserService } from './user.service';
+import { profile } from 'console';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,7 @@ export class TransactionService extends BaseService {
   }
 
   private usersService = inject(UserService);
+  balance :number = 0;
 
   myTransactions = signal<Transaction[]>([]);
   myTransactions$ = toObservable(this.myTransactions);
@@ -33,6 +35,11 @@ export class TransactionService extends BaseService {
         console.error('Error fetching transactions:', error);
         return throwError(() => error);
       })
+    );
+  }
+  getBalance():Observable<number> {
+    return this.usersService.getProfile().pipe(
+      map(profile => profile.balance)
     );
   }
 
