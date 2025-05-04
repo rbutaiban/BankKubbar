@@ -8,17 +8,31 @@
     <div class="flex gap-2 items-center">
       <app-modal
         #modal
+        [modalId]="'transaction-modal'"
         [modalTitle]="'Add Transaction'"
         [buttonTitle]="'Add Transaction'"
-        [buttonVariant]="'outline'"
+        [buttonVariant]="'fill'"
         (modalClosed)="onModalClosed()"
       >
         <app-transactions-form
+          [modalId]="'transaction-modal'"
           (formSubmitted)="onModalClosed()"
         ></app-transactions-form>
       </app-modal>
 
-      <app-button [variant]="'fill'">Transfer</app-button>
+      <app-modal
+        #modal
+        [modalId]="'transfer-modal'"
+        [modalTitle]="'Transfer'"
+        [buttonTitle]="'Transfer'"
+        [buttonVariant]="'outline'"
+        (modalClosed)="onModalClosed()"
+      >
+        <app-transfer-form
+          [modalId]="'transfer-modal'"
+          (formSubmitted)="onModalClosed()"
+        ></app-transfer-form>
+      </app-modal>
     </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, inject } from '@angular/core';
+import { Component, Output, EventEmitter, inject, Input } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import {
   FormBuilder,
@@ -20,6 +20,7 @@ import { ModalService } from '../../services/modal.service';
 export class TransactionsFormComponent {
   transactionForm!: FormGroup;
   @Output() formSubmitted = new EventEmitter<void>();
+  @Input() modalId: string = 'transaction-modal';
   private modalService = inject(ModalService);
   private userService = inject(UserService);
   errorLabel = '';
@@ -49,10 +50,9 @@ export class TransactionsFormComponent {
         .deposit(this.transactionForm.value.amount)
         .subscribe({
           next: (res) => {
-            console.log(res);
             this.transactionForm.reset({ type: 'deposit' });
             this.formSubmitted.emit();
-            this.modalService.close();
+            this.modalService.close(this.modalId);
           },
         });
     } else {
@@ -68,10 +68,9 @@ export class TransactionsFormComponent {
         .withdraw(this.transactionForm.value.amount)
         .subscribe({
           next: (res) => {
-            console.log(res);
             this.transactionForm.reset({ type: 'deposit' });
             this.formSubmitted.emit();
-            this.modalService.close();
+            this.modalService.close(this.modalId);
           },
         });
     }

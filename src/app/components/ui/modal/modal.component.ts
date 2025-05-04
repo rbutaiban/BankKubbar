@@ -16,11 +16,14 @@ import { ModalService } from '../../../services/modal.service';
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.css',
 })
-export class ModalComponent {
+export class ModalComponent implements OnInit {
   isOpen = false;
+  @Input() modalId: string = 'default';
 
-  constructor(private modalService: ModalService) {
-    this.modalService.isOpen$.subscribe((isOpen) => {
+  constructor(private modalService: ModalService) {}
+
+  ngOnInit() {
+    this.modalService.getModalState(this.modalId).subscribe((isOpen) => {
       this.isOpen = isOpen;
     });
   }
@@ -31,11 +34,11 @@ export class ModalComponent {
   @Output() modalClosed = new EventEmitter<void>();
 
   openModal() {
-    this.modalService.open();
+    this.modalService.open(this.modalId);
   }
 
   closeModal() {
-    this.modalService.close();
+    this.modalService.close(this.modalId);
     this.modalClosed.emit();
   }
 }
