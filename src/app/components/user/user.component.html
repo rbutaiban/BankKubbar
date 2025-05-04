@@ -1,18 +1,18 @@
 @if(user$ | async; as user) {
-<div class="px-4 py-3 relative bg-gray-200 rounded-2xl min-w-40 shadow-md">
+<div class="px-4 py-3 relative bg-gray-100 rounded-2xl min-w-40 shadow-md">
   <div class="flex items-center gap-2">
     @if(user.image) {
-    <img src="{{ user.image }}" alt="user" class="size-8 rounded-full" />
+    <img src="{{ user.image }}" alt="user" class="size-12 rounded-full" />
     } @else {
     <div
-      class="text-gray-900 size-8 flex items-center justify-center text-md font-black rounded-full bg-white border border-gray-400"
+      class="text-gray-900 size-12 flex items-center justify-center text-2xl font-black rounded-full bg-white border border-gray-400"
     >
       {{ user.username.charAt(0).toUpperCase() }}
     </div>
     }
     <div class="flex flex-col">
-      <!-- <p class="text-gray-700 text-xs">welcome,</p> -->
-      <p class="text-gray-900 text-md font-black uppercase">
+      <p class="text-gray-700 text-md">welcome,</p>
+      <p class="text-gray-900 text-lg font-black uppercase">
         {{ user.username }}
       </p>
     </div>

@@ -1,26 +1,69 @@
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
-    <label for="username">Username:</label>
-    <input type="text" id="username" formControlName="username" />
-    <app-form-error
-      [control]="registerForm.get('username')"
-      fieldName="username"
-    ></app-form-error>
-  
-    <label for="password">Password:</label>
-    <input type="password" id="password" formControlName="password" />
-    <app-form-error
-      [control]="registerForm.get('password')"
-      fieldName="Password"
-    ></app-form-error>
-  
-    <label for="image">Image:</label>
-    <input type="text" id="image" formControlName="image" />
-    <app-form-error
-      [control]="registerForm.get('image')"
-      fieldName="Image"
-    ></app-form-error>
-  
-    <button type="submit" [disabled]="registerForm.invalid">Register</button>
+<div class="w-full h-full flex flex-col items-center justify-center">
+  <form
+    [formGroup]="registerForm"
+    (ngSubmit)="onSubmit()"
+    class="bg-white p-8 rounded-4xl shadow-md flex flex-col gap-4 w-lg max-w-screen"
+  >
+    <div class="flex flex-col gap-2 mb-4">
+      <h1 class="text-2xl font-bold">Register</h1>
+      <p class="text-gray-500">Create an account to get started.</p>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label for="username">Username:</label>
+      <input
+        type="text"
+        id="username"
+        formControlName="username"
+        class="border border-gray-300 rounded-4xl p-2"
+      />
+      <app-form-error
+        [control]="registerForm.get('username')"
+        fieldName="username"
+      ></app-form-error>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        id="password"
+        formControlName="password"
+        class="border border-gray-300 rounded-4xl p-2"
+      />
+      <app-form-error
+        [control]="registerForm.get('password')"
+        fieldName="Password"
+      ></app-form-error>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label for="image">Image:</label>
+      <input
+        type="file"
+        id="image"
+        formControlName="image"
+        class="border border-gray-300 rounded-4xl p-2 file:bg-gray-200 file:text-blue-500 file:border file:border-blue-500 file:px-4 file:py-2 file:rounded-4xl file:cursor-pointer"
+      />
+      <app-form-error
+        [control]="registerForm.get('image')"
+        fieldName="Image"
+      ></app-form-error>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="registerForm.invalid"
+      class="bg-blue-500 text-white p-2 rounded-4xl cursor-pointer"
+    >
+      Register
+    </button>
+
+    <div class="flex gap-2">
+      <p>Already have an account?</p>
+      <a href="/login" class="text-blue-500">Login</a>
+    </div>
+
+    <label style="color: red">{{ errorLabel }}</label>
   </form>
-  <label style="color:red;">{{ errorLabel }}</label>
-  
+</div>

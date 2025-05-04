@@ -4,15 +4,17 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { loggedInGuard } from './guards/logged-in.guard';
 import { DashboardComponent } from './pages/dashboard/dashboard/dashboard.component';
+import { LayoutComponent } from './components/layout/layout.component';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [loggedInGuard] },
+  { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   {
     path: 'dashboard',
-    component: DashboardComponent,
+    component: LayoutComponent,
     canActivate: [loggedInGuard],
+    children: [{ path: '', component: DashboardComponent }],
   },
   { path: '**', redirectTo: '' },
 ];

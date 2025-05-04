@@ -8,6 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FormErrorComponent } from '../../shared/form-error/form-error.component';
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -39,7 +40,7 @@ export class LoginComponent implements OnInit {
     }
     this.authService.login(this.loginForm.value).subscribe({
       next: (Response) => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/dashboard']);
       },
       error: (Response) => {
         this.errorLabel = 'Login failed!';

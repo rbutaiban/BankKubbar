@@ -8,15 +8,9 @@ import { map } from 'rxjs';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [TransactionsComponent, BankCardComponent, AsyncPipe],
+  imports: [],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  userService = inject(UserService);
-  user$ = this.userService.user$;
-  amount = this.user$.pipe(map((user) => Number(user?.balance) || 0));
-  ngOnInit(): void {
-    this.userService.getProfile().subscribe();
-  }
 }

@@ -42,7 +42,7 @@ export class RegisterComponent implements OnInit {
     }
     this.authService.register(this.registerForm.value).subscribe({
       next: (Response) => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/dashboard']);
       },
       error: (Response) => {
         this.errorLabel = 'Registeration failed!';
