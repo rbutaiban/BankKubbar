@@ -2,12 +2,11 @@ import { Component, inject } from '@angular/core';
 import { ButtonComponent } from '../ui/button/button.component';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { UserComponent } from '../user/user.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [ButtonComponent, UserComponent],
+  imports: [ButtonComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
@@ -28,5 +27,9 @@ export class NavbarComponent {
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+
+  navigateTo(path: string) {
+    this.router.navigate([path]);
   }
 }

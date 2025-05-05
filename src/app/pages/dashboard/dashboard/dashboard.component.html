@@ -2,10 +2,14 @@
   <div class="flex gap-8">
     <div class="flex flex-col gap-4">
       <app-user></app-user>
+      @if(loading) {
+      <app-loader></app-loader>
+      } @else {
       <app-bank-card
-        [amount]="amount | async"
+        [amount]="amount()"
         [cardTitle]="'Balance'"
       ></app-bank-card>
+      }
     </div>
     <app-transactions class="flex-1"></app-transactions>
   </div>

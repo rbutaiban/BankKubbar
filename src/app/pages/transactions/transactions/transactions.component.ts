@@ -5,6 +5,7 @@ import { TransactionData } from '../../../interfaces/transaction';
 import { ModalComponent } from '../../../components/ui/modal/modal.component';
 import { TransactionsFormComponent } from '../../../components/transactions-form/transactions-form.component';
 import { TransferFormComponent } from '../../../components/transfer-form/transfer-form.component';
+import { LoaderComponent } from "../../../components/ui/loader/loader.component";
 
 @Component({
   selector: 'app-transactions',
@@ -14,7 +15,8 @@ import { TransferFormComponent } from '../../../components/transfer-form/transfe
     ModalComponent,
     TransactionsFormComponent,
     TransferFormComponent,
-  ],
+    LoaderComponent
+],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.css',
 })
