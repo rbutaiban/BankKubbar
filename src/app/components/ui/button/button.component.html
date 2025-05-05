@@ -1,12 +1,29 @@
-<button
-  (click)="onClickHandler()"
-  class="px-6 py-3 rounded-4xl"
-  [class.bg-blue-500]="variant === 'fill'"
+@if (routerLink.length > 0) {
+<a
+  [routerLink]="routerLink"
+  class="px-6 py-3 rounded-4xl cursor-pointer inline-block"
+  [class.bg-amber-500]="variant === 'fill'"
   [class.bg-transparent]="variant === 'outline'"
   [class.border]="variant === 'outline'"
-  [class.border-blue-500]="variant === 'outline'"
-  [class.text-blue-500]="variant === 'outline'"
+  [class.border-amber-500]="variant === 'outline'"
+  [class.text-amber-500]="variant === 'outline'"
   [class.text-white]="variant === 'fill'"
 >
-  {{ label }}
+  {{ label || "" }}
+  <ng-content></ng-content>
+</a>
+} @else {
+<button
+  (click)="onClickHandler()"
+  class="px-6 py-3 rounded-4xl cursor-pointer"
+  [class.bg-amber-500]="variant === 'fill'"
+  [class.bg-transparent]="variant === 'outline'"
+  [class.border]="variant === 'outline'"
+  [class.border-amber-500]="variant === 'outline'"
+  [class.text-amber-500]="variant === 'outline'"
+  [class.text-white]="variant === 'fill'"
+>
+  {{ label || "" }}
+  <ng-content></ng-content>
 </button>
+}

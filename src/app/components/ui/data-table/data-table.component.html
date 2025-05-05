@@ -17,13 +17,19 @@
         <td class="p-4 text-start border-b border-gray-200">
           @if (key === "type") { @if (item[key] === "deposit") {
           <div
-            class="text-sm text-green-600 bg-green-200 px-2 py-1 rounded-2xl max-w-fit"
+            class="text-xs uppercase text-green-600 bg-green-200 px-2 py-1 rounded-2xl max-w-fit"
           >
             {{ item[key] }}
           </div>
           } @else if (item[key] === "withdraw") {
           <div
-            class="text-sm text-red-600 bg-red-200 px-2 py-1 rounded-2xl max-w-fit"
+            class="text-xs uppercase text-red-600 bg-red-200 px-2 py-1 rounded-2xl max-w-fit"
+          >
+            {{ item[key] }}
+          </div>
+          } @else if (item[key] === "transfer") {
+          <div
+            class="text-xs uppercase text-blue-600 bg-blue-200 px-2 py-1 rounded-2xl max-w-fit"
           >
             {{ item[key] }}
           </div>

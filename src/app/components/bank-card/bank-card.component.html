@@ -5,11 +5,10 @@
 >
   <div class="card-back">
     <h3>{{ cardTitle }}</h3>
-    <p>{{ amount | currency : "KWD" : "symbol" }}</p>
+    <p>{{ amount | currency : "KWD" : "" : "1.3-3" }} <span>KWD</span></p>
   </div>
   <div class="card-front">
-    <img
-      src="https://download.logo.wine/logo/Mastercard/Mastercard-Logo.wine.png"
-    />
+    <p>**** **** **** ****</p>
+    <img src="assets/images/mastercard.png" />
   </div>
 </div>

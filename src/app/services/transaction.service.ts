@@ -1,10 +1,9 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map, throwError, Observable } from 'rxjs';
+import { catchError, map, throwError, Observable, tap } from 'rxjs';
 
 import { Transaction } from '../interfaces/transaction';
-import { toObservable } from '@angular/core/rxjs-interop';
 import { UserService } from './user.service';
 
 @Injectable({
@@ -14,21 +13,25 @@ export class TransactionService extends BaseService {
   private readonly baseUrl =
     'https://react-bank-project.eapi.joincoded.com/mini-project/api/transactions';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private userService: UserService) {
     super(http);
   }
 
-  private usersService = inject(UserService);
-
-  myTransactions = signal<Transaction[]>([]);
-  myTransactions$ = toObservable(this.myTransactions);
+  private handleTransaction<T>(operation: Observable<T>): Observable<T> {
+    return operation.pipe(
+      tap(() => {
+        this.userService.getProfile().subscribe();
+      }),
+      catchError((error) => {
+        console.error('Transaction failed:', error);
+        return throwError(() => error);
+      })
+    );
+  }
 
   getMyTransactions(): Observable<Transaction[]> {
     return this.get<Transaction[]>(`${this.baseUrl}/my`).pipe(
-      map((transactions: Transaction[]) => {
-        this.myTransactions.set(transactions);
-        return transactions;
-      }),
+      map((transactions: Transaction[]) => transactions),
       catchError((error) => {
         console.error('Error fetching transactions:', error);
         return throwError(() => error);
@@ -37,14 +40,20 @@ export class TransactionService extends BaseService {
   }
 
   deposit(amount: number) {
-    return this.post(`${this.baseUrl}/deposit`, { amount });
+    return this.handleTransaction(
+      this.put(`${this.baseUrl}/deposit`, { amount })
+    );
   }
 
   withdraw(amount: number) {
-    return this.post(`${this.baseUrl}/withdraw`, { amount });
+    return this.handleTransaction(
+      this.put(`${this.baseUrl}/withdraw`, { amount })
+    );
   }
 
   transfer(username: string, amount: number) {
-    return this.post(`${this.baseUrl}/transfer/${username}`, { amount });
+    return this.handleTransaction(
+      this.put(`${this.baseUrl}/transfer/${username}`, { amount })
+    );
   }
 }

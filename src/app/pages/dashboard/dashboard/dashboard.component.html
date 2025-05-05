@@ -1,1 +1,12 @@
-<p>dashboard works!</p>
+<div class="container mx-auto">
+  <div class="flex gap-8">
+    <div class="flex flex-col gap-4">
+      <app-user></app-user>
+      <app-bank-card
+        [amount]="amount | async"
+        [cardTitle]="'Balance'"
+      ></app-bank-card>
+    </div>
+    <app-transactions class="flex-1"></app-transactions>
+  </div>
+</div>

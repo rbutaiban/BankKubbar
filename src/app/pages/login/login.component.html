@@ -1,19 +1,55 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
-    <label for="username">Username:</label>
-    <input type="text" id="username" formControlName="username" />
-    <app-form-error
-      [control]="loginForm.get('username')"
-      fieldName="username"
-    ></app-form-error>
-  
-    <label for="password">Password:</label>
-    <input type="password" id="password" formControlName="password" />
-    <app-form-error
-      [control]="loginForm.get('password')"
-      fieldName="Password"
-    ></app-form-error>
-  
-    <button type="submit" [disabled]="loginForm.invalid">Login</button>
+<div class="w-full h-full flex flex-col items-center justify-center">
+  <form
+    [formGroup]="loginForm"
+    (ngSubmit)="onSubmit()"
+    class="bg-white p-8 rounded-4xl shadow-md flex flex-col gap-4 w-lg max-w-screen"
+  >
+    <div class="flex flex-col gap-2 mb-4">
+      <h1 class="text-2xl font-bold">Login</h1>
+      <p class="text-gray-500">Welcome back!</p>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label for="username">Username:</label>
+      <input
+        type="text"
+        id="username"
+        formControlName="username"
+        class="border border-gray-300 rounded-4xl p-2 focus:outline-none focus:ring-2 focus:ring-amber-500"
+      />
+      <app-form-error
+        [control]="loginForm.get('username')"
+        fieldName="username"
+      ></app-form-error>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <label for="password">Password:</label>
+      <input
+        type="password"
+        id="password"
+        formControlName="password"
+        class="border border-gray-300 rounded-4xl p-2 focus:outline-none focus:ring-2 focus:ring-amber-500"
+      />
+      <app-form-error
+        [control]="loginForm.get('password')"
+        fieldName="Password"
+      ></app-form-error>
+    </div>
+
+    <button
+      class="bg-amber-500 text-white p-2 rounded-4xl cursor-pointer"
+      type="submit"
+      [disabled]="loginForm.invalid"
+    >
+      Login
+    </button>
+
+    <div class="flex gap-2">
+      <p>Don't have an account?</p>
+      <a href="/register" class="text-amber-500">Register</a>
+    </div>
+
+    <label style="color: red">{{ errorLabel }}</label>
   </form>
-  <label style="color:red;">{{ errorLabel }}</label>
-  
+</div>
