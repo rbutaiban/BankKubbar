@@ -1,22 +1,13 @@
 import { Component, inject } from '@angular/core';
-import { TransactionsComponent } from '../transactions/transactions/transactions.component';
-import { BankCardComponent } from '../../components/bank-card/bank-card.component';
-import { UserService } from '../../services/user.service';
-import { AsyncPipe } from '@angular/common';
-import { map } from 'rxjs';
+import { Router } from '@angular/router';
+import { ButtonComponent } from '../../components/ui/button/button.component';
+import { RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [TransactionsComponent, BankCardComponent, AsyncPipe],
+  imports: [ButtonComponent, RouterLinkActive],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
-export class HomeComponent {
-  userService = inject(UserService);
-  user$ = this.userService.user$;
-  amount = this.user$.pipe(map((user) => Number(user?.balance) || 0));
-  ngOnInit(): void {
-    this.userService.getProfile().subscribe();
-  }
-}
+export class HomeComponent {}

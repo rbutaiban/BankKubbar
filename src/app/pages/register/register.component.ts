@@ -8,6 +8,7 @@ import {
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FormErrorComponent } from '../../shared/form-error/form-error.component';
+import { BaseFormComponent } from '../../shared/base-form/base-form.component';
 
 @Component({
   selector: 'app-register',
@@ -16,15 +17,15 @@ import { FormErrorComponent } from '../../shared/form-error/form-error.component
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent extends BaseFormComponent {
   registerForm!: FormGroup;
-  errorLabel?: string;
 
   constructor(
-    private fb: FormBuilder,
+    fb: FormBuilder,
     private authService: AuthService,
     private router: Router
   ) {
+    super(fb);
     this.registerForm = this.fb.group({
       username: ['', Validators.required, Validators.minLength(3)],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -42,7 +43,7 @@ export class RegisterComponent implements OnInit {
     }
     this.authService.register(this.registerForm.value).subscribe({
       next: (Response) => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/dashboard']);
       },
       error: (Response) => {
         this.errorLabel = 'Registeration failed!';

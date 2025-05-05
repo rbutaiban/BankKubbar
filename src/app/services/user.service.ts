@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable, catchError, throwError, tap } from 'rxjs';
 import { User } from '../interfaces/user';
 import { toObservable } from '@angular/core/rxjs-interop';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -17,6 +18,7 @@ export class UserService extends BaseService implements OnInit {
 
   user = signal<User | null>(null);
   user$ = toObservable(this.user);
+  balance = signal<number>(0);
 
   users = signal<User[]>([]);
   users$ = toObservable(this.users);
@@ -34,6 +36,7 @@ export class UserService extends BaseService implements OnInit {
       }),
       tap((user: User) => {
         this.user.set(user);
+        this.balance.set(user.balance);
       })
     );
   }
