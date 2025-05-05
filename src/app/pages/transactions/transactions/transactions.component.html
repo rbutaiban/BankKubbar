@@ -4,6 +4,60 @@
   <div class="right-side">
     <h3 class="text-2xl font-bold">My Transactions</h3>
   </div>
+  <!-- <input
+    type="text"
+    [(ngModel)]="searchTerm"
+    placeholder="Search..."
+    class="border p-2 rounded w-full mb-4"
+  /> -->
+
+  <!-- <ul class="space-y-2">
+    <li
+      *ngFor="let item of items | search : searchTerm"
+      class="p-2 bg-gray-100 rounded"
+    >
+      {{ item }}
+    </li>
+  </ul> -->
+
+  <!-- Category Buttons -->
+  <div class="flex space-x-4 mb-4">
+    <button
+      (click)="selectedCategory = 'all'"
+      class="px-4 py-2 bg-gray-200 rounded"
+    >
+      All
+    </button>
+    <button
+      (click)="selectedCategory = 'deposit'"
+      class="px-4 py-2 bg-green-200 rounded"
+    >
+      Deposit
+    </button>
+    <button
+      (click)="selectedCategory = 'withdraw'"
+      class="px-4 py-2 bg-red-200 rounded"
+    >
+      Withdraw
+    </button>
+    <button
+      (click)="selectedCategory = 'transfer'"
+      class="px-4 py-2 bg-blue-200 rounded"
+    >
+      Transfer
+    </button>
+  </div>
+
+  <!-- Filtered List -->
+  <ul class="space-y-2">
+    <li
+      *ngFor="let item of items | search : selectedCategory"
+      class="p-2 bg-gray-100 rounded"
+    >
+      {{ item | json }}
+    </li>
+  </ul>
+
   <div class="left-side">
     <div class="flex gap-2 items-center">
       <app-modal
