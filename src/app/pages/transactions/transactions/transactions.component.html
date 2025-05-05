@@ -1,62 +1,23 @@
 <div
-  class="flex w-full justify-between items-center py-4 overflow-x-auto max-w-full"
+  class="flex flex-col md:flex-row justify-between items-center py-4 gap-4"
 >
-  <div class="right-side">
+  <div class="flex flex-col md:flex-row items-center gap-4">
     <h3 class="text-2xl font-bold">My Transactions</h3>
+
+    <div class="flex flex-col">
+      <label for="category" class="text-sm font-medium mb-1">Filter by Type</label>
+      <select
+        id="category"
+        [(ngModel)]="type"
+        class="border p-2 rounded w-48"
+      >
+        <option value="all">All</option>
+        <option value="deposit">Deposit</option>
+        <option value="withdraw">Withdraw</option>
+        <option value="transfer">Transfer</option>
+      </select>
+    </div>
   </div>
-  <!-- <input
-    type="text"
-    [(ngModel)]="searchTerm"
-    placeholder="Search..."
-    class="border p-2 rounded w-full mb-4"
-  /> -->
-
-  <!-- <ul class="space-y-2">
-    <li
-      *ngFor="let item of items | search : searchTerm"
-      class="p-2 bg-gray-100 rounded"
-    >
-      {{ item }}
-    </li>
-  </ul> -->
-
-  <!-- Category Buttons -->
-  <div class="flex space-x-4 mb-4">
-    <button
-      (click)="selectedCategory = 'all'"
-      class="px-4 py-2 bg-gray-200 rounded"
-    >
-      All
-    </button>
-    <button
-      (click)="selectedCategory = 'deposit'"
-      class="px-4 py-2 bg-green-200 rounded"
-    >
-      Deposit
-    </button>
-    <button
-      (click)="selectedCategory = 'withdraw'"
-      class="px-4 py-2 bg-red-200 rounded"
-    >
-      Withdraw
-    </button>
-    <button
-      (click)="selectedCategory = 'transfer'"
-      class="px-4 py-2 bg-blue-200 rounded"
-    >
-      Transfer
-    </button>
-  </div>
-
-  <!-- Filtered List -->
-  <ul class="space-y-2">
-    <li
-      *ngFor="let item of items | search : selectedCategory"
-      class="p-2 bg-gray-100 rounded"
-    >
-      {{ item | json }}
-    </li>
-  </ul>
 
   <div class="left-side">
     <div class="flex gap-2 items-center">
@@ -99,7 +60,7 @@
 } @else {
 <app-data-table
   class="overflow-x-auto"
-  [data]="transactionsData()"
+  [data]="transactionsData() | search: type"
   [headerKeys]="[
     'id',
     'type',

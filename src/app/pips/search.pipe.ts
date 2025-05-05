@@ -6,15 +6,15 @@ import { log } from 'console';
   standalone: true,
 })
 export class SearchPipe implements PipeTransform {
-  transform(items: any[], category: string): any {
-    if (!items || category === 'all') return items;
+  transform(items: any[], type: string): any {
+    if (!items || type === 'all') return items;
 
     // const lowerSearch = searchText.toLowerCase();
 
     return items.filter(
-      (item) =>
+      (item => item.type === type) 
         // item.toString().toLowerCase().includes(lowerSearch)
-        item.category === category
+        
     );
   }
 }

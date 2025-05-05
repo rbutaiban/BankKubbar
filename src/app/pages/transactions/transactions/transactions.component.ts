@@ -31,7 +31,7 @@ export class TransactionsComponent {
   constructor(private transactionService: TransactionService) {
     this.loadTransactions();
   }
-  selectedCategory: string = 'all';
+  type: string = 'all';
   items: any[] = [];
   transactionsData = signal<TransactionData[]>([]);
   loading = false;
@@ -39,7 +39,7 @@ export class TransactionsComponent {
   ngOnInit(): void {
     this.transactionService.getMyTransactions().subscribe((data) => {
       this.items = data;
-      console.log(this.items);
+      console.log('All fetched items:', this.items);
     });
   }
 
