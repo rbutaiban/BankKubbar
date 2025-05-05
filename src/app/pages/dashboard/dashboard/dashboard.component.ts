@@ -1,9 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { UserService } from '../../../services/user.service';
-import { map } from 'rxjs';
 import { BankCardComponent } from '../../../components/bank-card/bank-card.component';
-
-import { AsyncPipe } from '@angular/common';
 import { TransactionsComponent } from '../../transactions/transactions/transactions.component';
 import { UserComponent } from '../../../components/user/user.component';
 import { LoaderComponent } from '../../../components/ui/loader/loader.component';
@@ -15,7 +12,7 @@ import { User } from '../../../interfaces/user';
   imports: [
     BankCardComponent,
     TransactionsComponent,
-    AsyncPipe,
+
     UserComponent,
     LoaderComponent,
   ],
