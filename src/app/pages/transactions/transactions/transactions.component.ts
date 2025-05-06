@@ -8,7 +8,7 @@ import { TransferFormComponent } from '../../../components/transfer-form/transfe
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SearchPipe } from '../../../pips/search.pipe';
-import { LoaderComponent } from "../../../components/ui/loader/loader.component";
+import { LoaderComponent } from '../../../components/ui/loader/loader.component';
 
 @Component({
   selector: 'app-transactions',
@@ -21,8 +21,8 @@ import { LoaderComponent } from "../../../components/ui/loader/loader.component"
     FormsModule,
     SearchPipe,
     CommonModule,
-    LoaderComponent
-],
+    LoaderComponent,
+  ],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.css',
 })
