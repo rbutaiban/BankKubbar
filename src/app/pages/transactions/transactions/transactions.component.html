@@ -1,26 +1,33 @@
-<div
-  class="flex flex-col md:flex-row justify-between items-center py-4 gap-4"
->
+<div class="flex flex-col md:flex-row justify-between items-center py-4 gap-4">
   <div class="flex flex-col md:flex-row items-center gap-4">
     <h3 class="text-2xl font-bold">My Transactions</h3>
-
-    <div class="flex flex-col">
-      <label for="category" class="text-sm font-medium mb-1">Filter by Type</label>
-      <select
-        id="category"
-        [(ngModel)]="type"
-        class="border p-2 rounded w-48"
-      >
-        <option value="all">All</option>
-        <option value="deposit">Deposit</option>
-        <option value="withdraw">Withdraw</option>
-        <option value="transfer">Transfer</option>
-      </select>
-    </div>
   </div>
 
   <div class="left-side">
     <div class="flex gap-2 items-center">
+      <app-modal
+        [modalId]="'filter-modal'"
+        [modalTitle]="'Filter'"
+        [buttonTitle]="'Filter'"
+        (modalClosed)="onModalClosed()"
+      >
+        <div class="flex flex-col">
+          <label for="category" class="text-sm font-medium mb-1"
+            >Filter by Type</label
+          >
+          <select
+            id="category"
+            [(ngModel)]="type"
+            class="border p-2 rounded w-48"
+          >
+            <option value="all">All</option>
+            <option value="deposit">Deposit</option>
+            <option value="withdraw">Withdraw</option>
+            <option value="transfer">Transfer</option>
+          </select>
+        </div>
+      </app-modal>
+
       <app-modal
         [modalId]="'transaction-modal'"
         [modalTitle]="'Add Transaction'"
@@ -60,7 +67,7 @@
 } @else {
 <app-data-table
   class="overflow-x-auto"
-  [data]="transactionsData() | search: type"
+  [data]="transactionsData() | search : type"
   [headerKeys]="[
     'id',
     'type',
