@@ -41,5 +41,16 @@
   >
     Submit
   </button>
+  <button
+  class="bg-amber-500 text-white p-2 rounded-4xl cursor-pointer"
+  type="button"
+  (click)="generateTransferLink()"
+  [disabled]="isOwner"
+>
+  Generate Link
+</button>
+<div id="snackbar"></div>
+
+
   <label style="color: red">{{ errorLabel }}</label>
 </form>
