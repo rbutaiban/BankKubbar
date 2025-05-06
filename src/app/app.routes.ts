@@ -16,5 +16,6 @@ export const routes: Routes = [
     canActivate: [loggedInGuard],
     children: [{ path: '', component: DashboardComponent }],
   },
+
   { path: '**', redirectTo: '' },
 ];
