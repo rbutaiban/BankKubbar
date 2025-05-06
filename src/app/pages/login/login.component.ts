@@ -19,24 +19,27 @@ import { BaseFormComponent } from '../../shared/base-form/base-form.component';
 })
 export class LoginComponent extends BaseFormComponent {
   loginForm!: FormGroup;
-  transfer : boolean = false;
+  transfer: boolean = false;
+  username: string = '';
+  amount: number = 0;
 
   constructor(
     private authService: AuthService,
-    private route:ActivatedRoute,
+    private route: ActivatedRoute,
     private router: Router,
     fb: FormBuilder
   ) {
-    
     super(fb);
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
-    this.route.queryParams.subscribe((params)=>{
-      this.transfer = params['transfer']
-
-    })
+    this.route.queryParams.subscribe((params) => {
+      this.transfer = params['transfer'];
+      this.username = params['username'];
+      this.amount = params['amount'];
+    });
+    console.log(this.transfer);
   }
 
   onSubmit() {
@@ -45,12 +48,15 @@ export class LoginComponent extends BaseFormComponent {
     }
     this.authService.login(this.loginForm.value).subscribe({
       next: (Response) => {
-        console.log(this.transfer)
-        if (this.transfer){
-          this.router.navigate(['/transfer'],{queryParamsHandling:'preserve'})
-        }
-        else
-        this.router.navigate(['/dashboard']);
+        console.log(this.transfer);
+        if (this.transfer) {
+          this.router.navigate(['/transfer'], {
+            queryParams: {
+              username: this.username,
+              amount: this.amount,
+            },
+          });
+        } else this.router.navigate(['/dashboard']);
       },
       error: (Response) => {
         this.errorLabel = 'Login failed!';
