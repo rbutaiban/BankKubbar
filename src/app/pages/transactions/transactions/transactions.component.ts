@@ -2,20 +2,24 @@ import { Component, signal } from '@angular/core';
 import { TransactionService } from '../../../services/transaction.service';
 import { DataTableComponent } from '../../../components/ui/data-table/data-table.component';
 import { TransactionData } from '../../../interfaces/transaction';
-import { ButtonComponent } from '../../../components/ui/button/button.component';
 import { ModalComponent } from '../../../components/ui/modal/modal.component';
 import { TransactionsFormComponent } from '../../../components/transactions-form/transactions-form.component';
 import { TransferFormComponent } from '../../../components/transfer-form/transfer-form.component';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { SearchPipe } from '../../../pips/search.pipe';
 
 @Component({
   selector: 'app-transactions',
   standalone: true,
   imports: [
     DataTableComponent,
-    ButtonComponent,
     ModalComponent,
     TransactionsFormComponent,
     TransferFormComponent,
+    FormsModule,
+    SearchPipe,
+    CommonModule,
   ],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.css',
@@ -24,9 +28,17 @@ export class TransactionsComponent {
   constructor(private transactionService: TransactionService) {
     this.loadTransactions();
   }
-
+  type: string = 'all';
+  items: any[] = [];
   transactionsData = signal<TransactionData[]>([]);
   loading = false;
+
+  ngOnInit(): void {
+    this.transactionService.getMyTransactions().subscribe((data) => {
+      this.items = data;
+      console.log('All fetched items:', this.items);
+    });
+  }
 
   private loadTransactions() {
     this.loading = true;
