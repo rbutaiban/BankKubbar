@@ -5,7 +5,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FormErrorComponent } from '../../shared/form-error/form-error.component';
 import { BaseFormComponent } from '../../shared/base-form/base-form.component';
@@ -19,9 +19,13 @@ import { BaseFormComponent } from '../../shared/base-form/base-form.component';
 })
 export class LoginComponent extends BaseFormComponent {
   loginForm!: FormGroup;
+  transfer: boolean = false;
+  username: string = '';
+  amount: number = 0;
 
   constructor(
     private authService: AuthService,
+    private route: ActivatedRoute,
     private router: Router,
     fb: FormBuilder
   ) {
@@ -30,6 +34,12 @@ export class LoginComponent extends BaseFormComponent {
       username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
+    this.route.queryParams.subscribe((params) => {
+      this.transfer = params['transfer'];
+      this.username = params['username'];
+      this.amount = params['amount'];
+    });
+    console.log(this.transfer);
   }
 
   onSubmit() {
@@ -38,7 +48,15 @@ export class LoginComponent extends BaseFormComponent {
     }
     this.authService.login(this.loginForm.value).subscribe({
       next: (Response) => {
-        this.router.navigate(['/dashboard']);
+        console.log(this.transfer);
+        if (this.transfer) {
+          this.router.navigate(['/transfer'], {
+            queryParams: {
+              username: this.username,
+              amount: this.amount,
+            },
+          });
+        } else this.router.navigate(['/dashboard']);
       },
       error: (Response) => {
         this.errorLabel = 'Login failed!';
