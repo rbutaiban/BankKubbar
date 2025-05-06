@@ -7,33 +7,24 @@ import { TransactionService } from '../../services/transaction.service';
   standalone: true,
   imports: [],
   templateUrl: './transfer.component.html',
-  styleUrl: './transfer.component.css'
+  styleUrl: './transfer.component.css',
 })
 export class TransferComponent {
-
   username = '';
-  amount =0;
-  constructor(private route: ActivatedRoute, private transactionService: TransactionService, private router: Router){
-    this.route.queryParams.subscribe(params =>{
-    this.username =params['username'],
-    this.amount = params['amount']}
-    )
-    console.log(this.username)
-    console.log(this.amount)
+  amount = 0;
+  constructor(
+    private route: ActivatedRoute,
+    private transactionService: TransactionService,
+    private router: Router
+  ) {
+    this.route.queryParams.subscribe((params) => {
+      (this.username = params['username']), (this.amount = params['amount']);
+    });
   }
 
-  onSubmit(){
-    this.transactionService
-      .transfer(
-        this.username,
-        this.amount
-      )
-      .subscribe({
-        next:() => this.router.navigate(['/'])
-      });
-
-
+  onSubmit() {
+    this.transactionService.transfer(this.username, this.amount).subscribe({
+      next: () => this.router.navigate(['/dashboard']),
+    });
   }
-
-
 }

@@ -38,7 +38,6 @@ export class TransactionsComponent {
   ngOnInit(): void {
     this.transactionService.getMyTransactions().subscribe((data) => {
       this.items = data;
-      console.log('All fetched items:', this.items);
     });
   }
 
