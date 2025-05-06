@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TransactionService } from '../../services/transaction.service';
+import { ModalComponent } from '../../components/ui/modal/modal.component';
+import { CurrencyPipe, CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-transfer',
   standalone: true,
-  imports: [],
+  imports: [ModalComponent, CommonModule],
   templateUrl: './transfer.component.html',
   styleUrl: './transfer.component.css',
 })
@@ -26,5 +28,9 @@ export class TransferComponent {
     this.transactionService.transfer(this.username, this.amount).subscribe({
       next: () => this.router.navigate(['/dashboard']),
     });
+  }
+
+  onDecline() {
+    this.router.navigate(['/dashboard']);
   }
 }
