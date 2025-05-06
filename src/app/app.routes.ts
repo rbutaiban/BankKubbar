@@ -5,6 +5,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { loggedInGuard } from './guards/logged-in.guard';
 import { DashboardComponent } from './pages/dashboard/dashboard/dashboard.component';
 import { LayoutComponent } from './components/layout/layout.component';
+import { TransferComponent } from './pages/transfer/transfer.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,5 +17,6 @@ export const routes: Routes = [
     canActivate: [loggedInGuard],
     children: [{ path: '', component: DashboardComponent }],
   },
+  { path: 'transfer', component: TransferComponent,canActivate: [loggedInGuard]},
   { path: '**', redirectTo: '' },
 ];

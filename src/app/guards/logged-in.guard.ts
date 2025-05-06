@@ -11,6 +11,8 @@ export const loggedInGuard: CanActivateFn = (route, state) => {
   const isLoggedIn = cookieService.check(authService.userToken);
   if (!isLoggedIn) {
     router.navigate(['/login']);
+
+
     return false;
   }
   return true;
