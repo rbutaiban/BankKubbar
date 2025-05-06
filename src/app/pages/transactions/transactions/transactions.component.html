@@ -1,16 +1,12 @@
-<div
-  class="flex flex-col md:flex-row justify-between items-center py-4 gap-4"
->
+<div class="flex flex-col md:flex-row justify-between items-center py-4 gap-4">
   <div class="flex flex-col md:flex-row items-center gap-4">
     <h3 class="text-2xl font-bold">My Transactions</h3>
 
     <div class="flex flex-col">
-      <label for="category" class="text-sm font-medium mb-1">Filter by Type</label>
-      <select
-        id="category"
-        [(ngModel)]="type"
-        class="border p-2 rounded w-48"
+      <label for="category" class="text-sm font-medium mb-1"
+        >Filter by Type</label
       >
+      <select id="category" [(ngModel)]="type" class="border p-2 rounded w-48">
         <option value="all">All</option>
         <option value="deposit">Deposit</option>
         <option value="withdraw">Withdraw</option>
@@ -57,16 +53,8 @@
 } @else {
 <app-data-table
   class="overflow-x-auto"
-  [data]="transactionsData() | search: type"
-  [headerKeys]="[
-    'id',
-    'type',
-    'amount',
-    'from',
-    'to',
-    'createdAt',
-    'updatedAt'
-  ]"
+  [data]="transactionsData() | search : type"
+  [headerKeys]="['id', 'type', 'amount', 'from', 'to', 'createdAt']"
 >
 </app-data-table>
 }

@@ -29,17 +29,14 @@ import { LoaderComponent } from '../../../components/ui/loader/loader.component'
 export class TransactionsComponent {
   constructor(private transactionService: TransactionService) {
     this.loadTransactions();
+    this.transactionService.getMyTransactions().subscribe((data) => {
+      this.items = data;
+    });
   }
   type: string = 'all';
   items: any[] = [];
   transactionsData = signal<TransactionData[]>([]);
   loading = false;
-
-  ngOnInit(): void {
-    this.transactionService.getMyTransactions().subscribe((data) => {
-      this.items = data;
-    });
-  }
 
   private loadTransactions() {
     this.loading = true;
@@ -55,7 +52,7 @@ export class TransactionsComponent {
                 from: result.from,
                 to: result.to,
                 createdAt: result.createdAt,
-                updatedAt: result.updatedAt,
+                // updatedAt: result.updatedAt,
               }))
               .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
           );
