@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CurrencyPipe, DatePipe } from '@angular/common';
-import { UsernamePipe } from '../../../pips/username.pipe';
+import { UsernamePipe } from '../../../pipes/username.pipe';
 
 @Component({
   selector: 'app-data-table',

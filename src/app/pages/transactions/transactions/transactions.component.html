@@ -41,36 +41,73 @@
 } @else {
 <div class="flex flex-col gap-4">
   <div class="flex items-center gap-2">
-    <label for="category" class="text-sm font-medium mb-1">Filter</label>
     <select
       id="category"
       [(ngModel)]="type"
-      class="border border-gray-300 rounded-4xl p-2 min-w-48"
+      class="border border-gray-300 rounded-4xl p-2 flex-1"
     >
-      <option value="all">All</option>
+      <option value="all">All Transactions</option>
       <option value="deposit">Deposit</option>
       <option value="withdraw">Withdraw</option>
       <option value="transfer">Transfer</option>
     </select>
 
+    <input
+      id="amount"
+      type="number"
+      min="0"
+      step="0.001"
+      placeholder="Amount (KWD)"
+      class="border border-gray-300 rounded-4xl p-2 flex-1"
+      [(ngModel)]="amount"
+      pattern="[0-9]*\.?[0-9]*"
+      inputmode="decimal"
+      onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode === 46"
+    />
+
+    <input
+      id="date"
+      type="date"
+      placeholder="Start  Date"
+      class="border border-gray-300 rounded-4xl p-2 flex-1"
+      [(ngModel)]="startDate"
+      [max]="endDate"
+    />
+
+    <input
+      id="date"
+      type="date"
+      placeholder="End Date"
+      class="border border-gray-300 rounded-4xl p-2 flex-1 disabled:opacity-50"
+      [(ngModel)]="endDate"
+      [min]="startDate"
+    />
+
+    <app-button [variant]="'outline'" (onClick)="onClear()"> Clear </app-button>
+    <!-- 
     <app-modal
+      [modalId]="'search-modal'"
+      [modalTitle]="'Search Transaction'"
+      [buttonTitle]="'Search Transaction'"
+      [buttonVariant]="'fill'"
+      (modalClosed)="onModalClosed()"
+    >
+      <app-search-form
         [modalId]="'search-modal'"
-        [modalTitle]="'Search Transaction'"
-        [buttonTitle]="'Search Transaction'"
-        [buttonVariant]="'fill'"
-        (modalClosed)="onModalClosed()"
-      >
-        <app-search-form
-          [modalId]="'search-modal'"
-          (formSubmitted)="onModalClosed()"
-          (formEmitter)="onFormReceived($event)"
-        ></app-search-form>
-      </app-modal>
+        (formSubmitted)="onModalClosed()"
+        (formEmitter)="onFormReceived($event)"
+      ></app-search-form>
+    </app-modal> -->
   </div>
 
   <app-data-table
     class="overflow-x-auto"
-    [data]="transactionsData() | search : type"
+    [data]="
+      transactionsData()
+        | search : type
+        | filterAmount : amount
+        | filterDate : startDate : endDate
+    "
     [headerKeys]="['amount', 'type', 'from', 'to', 'created']"
   ></app-data-table>
 </div>

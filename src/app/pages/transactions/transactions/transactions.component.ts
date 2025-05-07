@@ -10,8 +10,11 @@ import { FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { SearchPipe } from '../../../pips/search.pipe';
+import { SearchPipe } from '../../../pipes/search.pipe';
 import { LoaderComponent } from '../../../components/ui/loader/loader.component';
+import { FilterAmountPipe } from '../../../pipes/filter-amount.pipe';
+import { FilterDatePipe } from '../../../pipes/filter-date.pipe';
+import { ButtonComponent } from '../../../components/ui/button/button.component';
 
 @Component({
   selector: 'app-transactions',
@@ -26,19 +29,28 @@ import { LoaderComponent } from '../../../components/ui/loader/loader.component'
     SearchPipe,
     CommonModule,
     LoaderComponent,
+    FilterAmountPipe,
+    FilterDatePipe,
+    ButtonComponent,
   ],
   providers: [DatePipe],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.css',
 })
-export class TransactionsComponent implements OnInit{
-  constructor(private transactionService: TransactionService, private datePipe: DatePipe) {
+export class TransactionsComponent implements OnInit {
+  constructor(
+    private transactionService: TransactionService,
+    private datePipe: DatePipe
+  ) {
     this.loadTransactions();
     this.transactionService.getMyTransactions().subscribe((data) => {
       this.items = data;
     });
   }
   type: string = 'all';
+  amount: number | null = null;
+  startDate?: string | null = null;
+  endDate?: string | null = null;
   items: any[] = [];
   transactionsData = signal<TransactionData[]>([]);
   transactionsDataFiltered = signal<TransactionData[]>([]);
@@ -46,9 +58,9 @@ export class TransactionsComponent implements OnInit{
 
   searchForm: FormGroup | null = null;
 
-  transformedStartDate: string | null= "";
-  transformedEndDate: string | null = "";
-  transformedCreatedDate: string | null = "";
+  transformedStartDate: string | null = '';
+  transformedEndDate: string | null = '';
+  transformedCreatedDate: string | null = '';
 
   ngOnInit(): void {
     this.loadTransactions();
@@ -76,7 +88,6 @@ export class TransactionsComponent implements OnInit{
               }))
               .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
           );
-          
         }
         this.loading = false;
       },
@@ -85,31 +96,51 @@ export class TransactionsComponent implements OnInit{
         this.loading = false;
       },
     });
-    
   }
 
   onModalClosed() {
     this.loadTransactions();
   }
 
-  onFormReceived(form: FormGroup){
+  onFormReceived(form: FormGroup) {
     this.searchForm = form;
 
     this.transactionsData.set(
-      this.transactionsData().filter((item) => {
-        this.transformedStartDate = this.datePipe.transform(this.searchForm?.get('startDate')?.value, 'mediumDate');
-        this.transformedEndDate = this.datePipe.transform(this.searchForm?.get('endDate')?.value, 'mediumDate');
-        this.transformedCreatedDate = this.datePipe.transform(item.createdAt, 'mediumDate');
-        if(this.transformedCreatedDate && this.transformedStartDate && this.transformedEndDate){
-          return (item.amount === this.searchForm?.get('amount')?.value)
-                && (this.transformedStartDate <= this.transformedCreatedDate) 
-                && (this.transformedEndDate >= this.transformedEndDate)
-        }
-        return;
-        
-      })
-      .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
+      this.transactionsData()
+        .filter((item) => {
+          this.transformedStartDate = this.datePipe.transform(
+            this.searchForm?.get('startDate')?.value,
+            'mediumDate'
+          );
+          this.transformedEndDate = this.datePipe.transform(
+            this.searchForm?.get('endDate')?.value,
+            'mediumDate'
+          );
+          this.transformedCreatedDate = this.datePipe.transform(
+            item.createdAt,
+            'mediumDate'
+          );
+          if (
+            this.transformedCreatedDate &&
+            this.transformedStartDate &&
+            this.transformedEndDate
+          ) {
+            return (
+              item.amount === this.searchForm?.get('amount')?.value &&
+              this.transformedStartDate <= this.transformedCreatedDate &&
+              this.transformedEndDate >= this.transformedEndDate
+            );
+          }
+          return;
+        })
+        .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
     );
-    
+  }
+
+  onClear() {
+    this.type = 'all';
+    this.amount = null;
+    this.startDate = null;
+    this.endDate = null;
   }
 }

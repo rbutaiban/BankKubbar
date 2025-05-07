@@ -8,6 +8,7 @@
   [class.border-amber-500]="variant === 'outline'"
   [class.text-amber-500]="variant === 'outline'"
   [class.text-white]="variant === 'fill'"
+  [class.hover:bg-amber-50]="variant === 'outline'"
 >
   {{ label || "" }}
   <ng-content></ng-content>
@@ -22,6 +23,8 @@
   [class.border-amber-500]="variant === 'outline'"
   [class.text-amber-500]="variant === 'outline'"
   [class.text-white]="variant === 'fill'"
+  [class.hover:bg-amber-50]="variant === 'outline'"
+  [class.hover:bg-amber-600]="variant === 'fill'"
 >
   {{ label || "" }}
   <ng-content></ng-content>
