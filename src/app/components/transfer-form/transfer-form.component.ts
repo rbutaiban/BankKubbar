@@ -106,13 +106,9 @@ export class TransferFormComponent {
         username
       )}&amount=${this.linkForm.get('amount')?.value}&transfer=True`;
       navigator.clipboard.writeText(link).then(() => {
-        showSnackbar('Transfer link copied to clipboard!');
         this.link.set(link);
-        // setTimeout(() => {
-        //   this.transferForm.reset();
-        //   this.formSubmitted.emit();
-        //   this.modalService.close(this.modalId);
-        // }, 1000);
+        showSnackbar('Transfer link copied to clipboard!');
+       
       });
     }
   }
