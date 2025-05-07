@@ -7,6 +7,20 @@
   <div class="left-side">
     <div class="flex gap-2 items-center">
       <app-modal
+        [modalId]="'search-modal'"
+        [modalTitle]="'Search Transaction'"
+        [buttonTitle]="'Search Transaction'"
+        [buttonVariant]="'fill'"
+        (modalClosed)="onModalClosed()"
+      >
+        <app-search-form
+          [modalId]="'search-modal'"
+          (formSubmitted)="onModalClosed()"
+          (formEmitter)="onFormReceived($event)"
+        ></app-search-form>
+      </app-modal>
+
+      <app-modal
         [modalId]="'transaction-modal'"
         [modalTitle]="'Add Transaction'"
         [buttonTitle]="'Add Transaction'"

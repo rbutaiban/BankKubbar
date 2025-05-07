@@ -27,7 +27,7 @@ export class RegisterComponent extends BaseFormComponent {
   ) {
     super(fb);
     this.registerForm = this.fb.group({
-      username: ['', Validators.required, Validators.minLength(3)],
+      username: ['', [Validators.required, Validators.minLength(3)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       image: ['', [Validators.required]],
     });

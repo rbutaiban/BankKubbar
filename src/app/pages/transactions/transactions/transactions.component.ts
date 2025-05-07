@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, OnInit, signal } from '@angular/core';
 import { TransactionService } from '../../../services/transaction.service';
 import { DataTableComponent } from '../../../components/ui/data-table/data-table.component';
 import { TransactionData } from '../../../interfaces/transaction';
@@ -6,6 +6,9 @@ import { ButtonComponent } from '../../../components/ui/button/button.component'
 import { ModalComponent } from '../../../components/ui/modal/modal.component';
 import { TransactionsFormComponent } from '../../../components/transactions-form/transactions-form.component';
 import { TransferFormComponent } from '../../../components/transfer-form/transfer-form.component';
+import { SearchFormComponent } from '../../../components/search-form/search-form.component';
+import { FormGroup } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-transactions',
@@ -16,17 +19,30 @@ import { TransferFormComponent } from '../../../components/transfer-form/transfe
     ModalComponent,
     TransactionsFormComponent,
     TransferFormComponent,
+    SearchFormComponent,
   ],
+  providers: [DatePipe],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.css',
 })
-export class TransactionsComponent {
-  constructor(private transactionService: TransactionService) {
+export class TransactionsComponent implements OnInit{
+  transactionsData = signal<TransactionData[]>([]);
+  transactionsDataFiltered = signal<TransactionData[]>([]);
+  loading = false;
+
+  searchForm: FormGroup | null = null;
+
+  transformedStartDate: string | null= "";
+  transformedEndDate: string | null = "";
+  transformedCreatedDate: string | null = "";
+
+  ngOnInit(): void {
     this.loadTransactions();
   }
 
-  transactionsData = signal<TransactionData[]>([]);
-  loading = false;
+  constructor(private transactionService: TransactionService, private datePipe: DatePipe) {
+    // this.loadTransactions();
+  }
 
   private loadTransactions() {
     this.loading = true;
@@ -46,6 +62,7 @@ export class TransactionsComponent {
               }))
               .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
           );
+          
         }
         this.loading = false;
       },
@@ -54,9 +71,31 @@ export class TransactionsComponent {
         this.loading = false;
       },
     });
+    
   }
 
   onModalClosed() {
     this.loadTransactions();
+  }
+
+  onFormReceived(form: FormGroup){
+    this.searchForm = form;
+
+    this.transactionsData.set(
+      this.transactionsData().filter((item) => {
+        this.transformedStartDate = this.datePipe.transform(this.searchForm?.get('startDate')?.value, 'mediumDate');
+        this.transformedEndDate = this.datePipe.transform(this.searchForm?.get('endDate')?.value, 'mediumDate');
+        this.transformedCreatedDate = this.datePipe.transform(item.createdAt, 'mediumDate');
+        if(this.transformedCreatedDate && this.transformedStartDate && this.transformedEndDate){
+          return (item.amount === this.searchForm?.get('amount')?.value)
+                && (this.transformedStartDate <= this.transformedCreatedDate) 
+                && (this.transformedEndDate >= this.transformedEndDate)
+        }
+        return;
+        
+      })
+      .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
+    );
+    
   }
 }
