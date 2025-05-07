@@ -15,5 +15,5 @@ export interface TransactionData {
   from: string;
   to: string;
   createdAt: Date;
-  updatedAt: Date;
+  // updatedAt: Date;
 }

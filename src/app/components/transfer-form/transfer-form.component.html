@@ -1,3 +1,31 @@
+<div class="flex mb-4">
+  <button
+    class="w-full p-2 cursor-pointer rounded-l-4xl"
+    [class.bg-amber-500]="isTransfer()"
+    [class.bg-transparent]="!isTransfer()"
+    [class.border]="!isTransfer()"
+    [class.border-amber-500]="!isTransfer()"
+    [class.text-white]="isTransfer()"
+    [class.text-amber-500]="!isTransfer()"
+    (click)="toggleTransfer(true)"
+  >
+    Transfer
+  </button>
+  <button
+    class="w-full text-white p-2 cursor-pointer rounded-r-4xl"
+    [class.bg-amber-500]="!isTransfer()"
+    [class.bg-transparent]="isTransfer()"
+    [class.border]="isTransfer()"
+    [class.border-amber-500]="isTransfer()"
+    [class.text-white]="!isTransfer()"
+    [class.text-amber-500]="isTransfer()"
+    (click)="toggleTransfer(false)"
+  >
+    Send Link
+  </button>
+</div>
+
+@if(isTransfer()) {
 <form
   [formGroup]="transferForm"
   (ngSubmit)="onSubmit()"
@@ -41,16 +69,44 @@
   >
     Submit
   </button>
-  <button
-  class="bg-amber-500 text-white p-2 rounded-4xl cursor-pointer"
-  type="button"
-  (click)="generateTransferLink()"
-  [disabled]="isOwner"
->
-  Generate Link
-</button>
-<div id="snackbar"></div>
-
+  <div id="snackbar"></div>
 
   <label style="color: red">{{ errorLabel }}</label>
 </form>
+} @else {
+<form
+  [formGroup]="linkForm"
+  (ngSubmit)="generateTransferLink()"
+  class="flex flex-col gap-4"
+>
+  <div class="flex flex-col gap-2">
+    <label for="amount">Amount</label>
+    <input
+      type="number"
+      id="amount"
+      formControlName="amount"
+      class="border border-gray-300 rounded-4xl p-2"
+    />
+    <app-form-error
+      [control]="transferForm.get('amount')"
+      fieldName="amount"
+    ></app-form-error>
+  </div>
+
+  <button
+    class="bg-amber-500 text-white p-2 rounded-4xl cursor-pointer"
+    type="submit"
+    [disabled]="isOwner"
+  >
+    Generate Link
+  </button>
+  @if(link()) {
+  <p
+    class="py-2 px-4 bg-gray-100 rounded border border-gray-300 text-nowrap overflow-ellipsis overflow-clip cursor-pointer"
+    (click)="copyLink()"
+  >
+    {{ link() }}
+  </p>
+  }
+</form>
+}

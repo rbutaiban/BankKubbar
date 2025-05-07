@@ -39,7 +39,6 @@ export class LoginComponent extends BaseFormComponent {
       this.username = params['username'];
       this.amount = params['amount'];
     });
-    console.log(this.transfer);
   }
 
   onSubmit() {
@@ -48,7 +47,6 @@ export class LoginComponent extends BaseFormComponent {
     }
     this.authService.login(this.loginForm.value).subscribe({
       next: (Response) => {
-        console.log(this.transfer);
         if (this.transfer) {
           this.router.navigate(['/transfer'], {
             queryParams: {
@@ -62,7 +60,5 @@ export class LoginComponent extends BaseFormComponent {
         this.errorLabel = 'Login failed!';
       },
     });
-
-    console.log('Form Data:', this.loginForm.value);
   }
 }

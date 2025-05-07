@@ -8,6 +8,7 @@ import { TransferFormComponent } from '../../../components/transfer-form/transfe
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { SearchPipe } from '../../../pips/search.pipe';
+import { LoaderComponent } from '../../../components/ui/loader/loader.component';
 
 @Component({
   selector: 'app-transactions',
@@ -20,6 +21,7 @@ import { SearchPipe } from '../../../pips/search.pipe';
     FormsModule,
     SearchPipe,
     CommonModule,
+    LoaderComponent,
   ],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.css',
@@ -27,18 +29,14 @@ import { SearchPipe } from '../../../pips/search.pipe';
 export class TransactionsComponent {
   constructor(private transactionService: TransactionService) {
     this.loadTransactions();
+    this.transactionService.getMyTransactions().subscribe((data) => {
+      this.items = data;
+    });
   }
   type: string = 'all';
   items: any[] = [];
   transactionsData = signal<TransactionData[]>([]);
   loading = false;
-
-  ngOnInit(): void {
-    this.transactionService.getMyTransactions().subscribe((data) => {
-      this.items = data;
-      console.log('All fetched items:', this.items);
-    });
-  }
 
   private loadTransactions() {
     this.loading = true;
@@ -54,7 +52,7 @@ export class TransactionsComponent {
                 from: result.from,
                 to: result.to,
                 createdAt: result.createdAt,
-                updatedAt: result.updatedAt,
+                // updatedAt: result.updatedAt,
               }))
               .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
           );
