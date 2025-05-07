@@ -1,3 +1,6 @@
+@if(amount === null) {
+<p>No amount</p>
+} @else {
 <div
   [@openClose]="isCardOpen ? 'active' : 'inactive'"
   class="card"
@@ -12,3 +15,4 @@
     <img src="assets/images/mastercard.png" />
   </div>
 </div>
+}

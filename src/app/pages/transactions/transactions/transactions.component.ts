@@ -2,30 +2,44 @@ import { Component, computed, OnInit, signal } from '@angular/core';
 import { TransactionService } from '../../../services/transaction.service';
 import { DataTableComponent } from '../../../components/ui/data-table/data-table.component';
 import { TransactionData } from '../../../interfaces/transaction';
-import { ButtonComponent } from '../../../components/ui/button/button.component';
 import { ModalComponent } from '../../../components/ui/modal/modal.component';
 import { TransactionsFormComponent } from '../../../components/transactions-form/transactions-form.component';
 import { TransferFormComponent } from '../../../components/transfer-form/transfer-form.component';
 import { SearchFormComponent } from '../../../components/search-form/search-form.component';
 import { FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { SearchPipe } from '../../../pips/search.pipe';
+import { LoaderComponent } from '../../../components/ui/loader/loader.component';
 
 @Component({
   selector: 'app-transactions',
   standalone: true,
   imports: [
     DataTableComponent,
-    ButtonComponent,
     ModalComponent,
     TransactionsFormComponent,
     TransferFormComponent,
     SearchFormComponent,
+    FormsModule,
+    SearchPipe,
+    CommonModule,
+    LoaderComponent,
   ],
   providers: [DatePipe],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.css',
 })
 export class TransactionsComponent implements OnInit{
+  constructor(private transactionService: TransactionService, private datePipe: DatePipe) {
+    this.loadTransactions();
+    this.transactionService.getMyTransactions().subscribe((data) => {
+      this.items = data;
+    });
+  }
+  type: string = 'all';
+  items: any[] = [];
   transactionsData = signal<TransactionData[]>([]);
   transactionsDataFiltered = signal<TransactionData[]>([]);
   loading = false;
@@ -40,9 +54,9 @@ export class TransactionsComponent implements OnInit{
     this.loadTransactions();
   }
 
-  constructor(private transactionService: TransactionService, private datePipe: DatePipe) {
-    // this.loadTransactions();
-  }
+  // constructor(private transactionService: TransactionService, private datePipe: DatePipe) {
+  //   // this.loadTransactions();
+  // }
 
   private loadTransactions() {
     this.loading = true;
@@ -58,7 +72,7 @@ export class TransactionsComponent implements OnInit{
                 from: result.from,
                 to: result.to,
                 createdAt: result.createdAt,
-                updatedAt: result.updatedAt,
+                // updatedAt: result.updatedAt,
               }))
               .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
           );
@@ -88,7 +102,7 @@ export class TransactionsComponent implements OnInit{
         this.transformedCreatedDate = this.datePipe.transform(item.createdAt, 'mediumDate');
         if(this.transformedCreatedDate && this.transformedStartDate && this.transformedEndDate){
           return (item.amount === this.searchForm?.get('amount')?.value)
-                && (this.transformedStartDate <= this.transformedCreatedDate) 
+           TransactionsComponent     && (this.transformedStartDate <= this.transformedCreatedDate) 
                 && (this.transformedEndDate >= this.transformedEndDate)
         }
         return;

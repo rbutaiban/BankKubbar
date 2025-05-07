@@ -1,12 +1,11 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../interfaces/user';
-import { TransactionsFormComponent } from '../transactions-form/transactions-form.component';
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [TransactionsFormComponent],
+  imports: [],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css',
 })

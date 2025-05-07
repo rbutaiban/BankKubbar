@@ -1,9 +1,8 @@
-<div
-  class="flex w-full justify-between items-center py-4 overflow-x-auto max-w-full"
->
-  <div class="right-side">
+<div class="flex flex-col md:flex-row justify-between items-center py-4 gap-4">
+  <div class="flex flex-col md:flex-row items-center gap-4">
     <h3 class="text-2xl font-bold">My Transactions</h3>
   </div>
+
   <div class="left-side">
     <div class="flex gap-2 items-center">
       <app-modal
@@ -51,24 +50,28 @@
 
 @if (loading) {
 <div class="flex justify-center items-center p-8">
-  <div
-    class="animate-spin rounded-full h-8 w-8 border-2 border-b-2 border-r border-amber-500"
-  ></div>
-  <span class="ml-2">Loading transactions...</span>
+  <app-loader></app-loader>
 </div>
 } @else {
-<app-data-table
-  class="overflow-x-auto"
-  [data]="transactionsData()"
-  [headerKeys]="[
-    'id',
-    'type',
-    'amount',
-    'from',
-    'to',
-    'createdAt',
-    'updatedAt'
-  ]"
->
-</app-data-table>
+<div class="flex flex-col gap-4">
+  <div class="flex items-center gap-2">
+    <label for="category" class="text-sm font-medium mb-1">Filter</label>
+    <select
+      id="category"
+      [(ngModel)]="type"
+      class="border border-gray-300 rounded-4xl p-2 min-w-48"
+    >
+      <option value="all">All</option>
+      <option value="deposit">Deposit</option>
+      <option value="withdraw">Withdraw</option>
+      <option value="transfer">Transfer</option>
+    </select>
+  </div>
+
+  <app-data-table
+    class="overflow-x-auto"
+    [data]="transactionsData() | search : type"
+    [headerKeys]="['id', 'type', 'amount', 'from', 'to', 'createdAt']"
+  ></app-data-table>
+</div>
 }
