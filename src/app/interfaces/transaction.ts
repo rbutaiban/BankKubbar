@@ -9,7 +9,7 @@ export interface Transaction {
 }
 
 export interface TransactionData {
-  id: string;
+  // id: string;
   type: string;
   amount: number;
   from: string;

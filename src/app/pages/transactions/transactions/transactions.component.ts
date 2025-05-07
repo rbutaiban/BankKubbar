@@ -66,9 +66,9 @@ export class TransactionsComponent implements OnInit{
           this.transactionsData.set(
             results
               .map((result) => ({
-                id: result._id,
-                type: result.type,
+                // id: result._id,
                 amount: result.amount,
+                type: result.type,
                 from: result.from,
                 to: result.to,
                 createdAt: result.createdAt,
@@ -102,7 +102,7 @@ export class TransactionsComponent implements OnInit{
         this.transformedCreatedDate = this.datePipe.transform(item.createdAt, 'mediumDate');
         if(this.transformedCreatedDate && this.transformedStartDate && this.transformedEndDate){
           return (item.amount === this.searchForm?.get('amount')?.value)
-           TransactionsComponent     && (this.transformedStartDate <= this.transformedCreatedDate) 
+                && (this.transformedStartDate <= this.transformedCreatedDate) 
                 && (this.transformedEndDate >= this.transformedEndDate)
         }
         return;
