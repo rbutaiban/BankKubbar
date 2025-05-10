@@ -7,5 +7,8 @@
     </p>
     } @if (control!.errors['email']) {
     <p>{{ fieldName }} must be a valid email address.</p>
-    } }
+    } @if (control!.errors['pattern']) {
+      <p>{{ fieldName }} must contain number, small letter, capital letter, and special character.</p>
+  } 
+}
     
